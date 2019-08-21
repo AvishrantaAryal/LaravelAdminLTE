@@ -35,13 +35,13 @@ Home
           {{Session::get("message", '')}}
         </div>
         @elseif(Session::has('updatesuccess'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-info alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Data Updated Successfully</strong>
           {{Session::get("message", '')}}
         </div>
         @elseif(Session::has('deletesuccess'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-danger alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Data Deleted Successfully</strong>
           {{Session::get("message", '')}}

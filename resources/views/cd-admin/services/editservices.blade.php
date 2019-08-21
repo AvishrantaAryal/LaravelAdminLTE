@@ -82,7 +82,7 @@ Home
        
               
               <div class="box-footer" >
-                <button type="submit" class="btn btn-info pull-right">Save</button>
+                <button type="submit" class="btn btn-info pull-right">Update</button>
                 <button class="btn btn-danger">Cancel</button>
                </div>
 

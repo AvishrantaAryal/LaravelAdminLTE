@@ -47,7 +47,7 @@ Route::get('/allpackages','PackageController@viewpackage');
 Route::get('/addpackages','PackageController@addpackage');
 Route::post('/storepackages','PackageController@store');
 Route::post('/updatepackage/{id}','PackageController@update');
-Route::get('/delete/{id}','PackageController@delete');
+Route::get('/deletepackages/{id}','PackageController@delete');
 
 
 Route::get('/bookings','AdminController@booking');

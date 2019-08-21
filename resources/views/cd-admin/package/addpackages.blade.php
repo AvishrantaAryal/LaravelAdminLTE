@@ -12,6 +12,13 @@ Home
       <h1>
   ADD PACKAGES
   </h1>
+   <div class="btn-danger">    
+  @if($errors->any())
+    @foreach($errors->all() as $e)
+      <li>{{$e}}</li>
+    @endforeach
+@endif
+</div>
      
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -33,7 +40,8 @@ Home
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form method="post" action="{{url('storepackages')}}" enctype="multipart/form-data" >
+              {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
                   <label for="name">Package Name</label>

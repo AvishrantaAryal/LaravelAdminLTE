@@ -13,20 +13,11 @@ class AdminController extends Controller
    
     public function about(){
     return view('cd-admin.about.about');
-	}
-	public function viewservice()
-	{
-		return view('cd-admin.services.services');
-	}
-	public function addservice(){
-		return view('cd-admin.services.addservice');
-	}
-	public function viewpackage(){
-		return view('cd-admin.package.packages');
-	}
-	public function addpackage(){
-		return view('cd-admin.package.addpackages');
-	}
+	 
+	 }
+	
+	
+	
 	public function booking(){
 		return view('cd-admin.booking.bookings');
 	}

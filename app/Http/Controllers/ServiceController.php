@@ -29,7 +29,7 @@ class ServiceController extends Controller
     $data = $this->validationform();
     $img = $this->insertimage($data['image']);
     $a['image'] = $img;
-    $a['created_at']=Carbon::now();
+    $a['created_at']=Carbon::now('Asia/Kathmandu');
     $final = array_merge($data,$a);
 
     DB::table('services')->Insert($final);
@@ -46,11 +46,16 @@ public function edit($id){
 
 public function update($id)
 {  
+   $services = DB::table('services')->where('id',$id)->get()->first();
     $a = [];
-    $a['updated_at']=Carbon::now();
+    $a['updated_at']=Carbon::now('Asia/Kathmandu');
     $data = $this->validationform();
     if(Input::hasFile('image'))
     {
+        if (file_exists('imageupload/'.$services->image)) 
+        {
+            unlink('imageupload/'.$services->image);
+        }
         $img = $this->insertimage($data['image']);
         $a['image'] = $img;        
         $final = array_merge($data,$a);
@@ -58,8 +63,7 @@ public function update($id)
     }
 else
     {
-                $final = array_merge($data,$a);
-
+         $final = array_merge($data,$a);
         $services=DB::table('services')->where('id',$id)->Update($final);
     }
     Session::flash('updatesuccess');

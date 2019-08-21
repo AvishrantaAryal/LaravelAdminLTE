@@ -9,9 +9,10 @@ Home
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        PACKAGES LIST
+        Package List
         
       </h1>
+     
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Packages</a></li>
@@ -25,8 +26,7 @@ Home
            <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                
-                <a href="{{url('/addpackages')}}"><button class="btn btn-default" style="margin-bottom: 10px; ">ADD</button></a>
+                 <a href="{{url('/addpackages')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">ADD</button></a>
               </h3>
               @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible">
@@ -35,13 +35,13 @@ Home
           {{Session::get("message", '')}}
         </div>
         @elseif(Session::has('updatesuccess'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-info alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Data Updated Successfully</strong>
           {{Session::get("message", '')}}
         </div>
         @elseif(Session::has('deletesuccess'))
-        <div class="alert alert-success alert-dismissible">
+        <div class="alert alert-danger alert-dismissible">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Data Deleted Successfully</strong>
           {{Session::get("message", '')}}
@@ -50,8 +50,10 @@ Home
             </div>
             <!-- /.box-header -->
             <div class="box-body">
+
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
+
                 <tr>
                   <th>ID</th>
                   <th>Image</th>
@@ -61,15 +63,19 @@ Home
                 </tr>
                 </thead>
                 <tbody>
+                @foreach($pak as $pa)
                 <tr>
-                  <td></td>
-                  <td><img src="{{asset('public/cd-admin/images/carousel3.png')}}" alt="" height="100px" width="100px;">
-                  </td>
-                  <td>Win 95+</td>
-                  <td><button class="btn btn-info" data-toggle="modal" data-target="#edit" ><i class="fa fa-edit"></i></button></a>
-                    <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash"> </i></button>
-                   <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong"><i class="fa  fa-eye"> </i></button></td>
-                  </tr>
+                  <td>{{$pa->id}}</td>
+                  <td><img src="{{url('/imageupload/'.$pa->image)}}" alt="img" style="height:100px;"> </td>
+                  <td>{{$pa->name}}</td>
+                  <td>
+                    <button class="btn btn-info" data-toggle="modal" data-target="#edit{{$pa->id}}" ><i class="fa fa-edit">
+                    </i></button></a>
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$pa->id}}"><i class="fa fa-trash"> </i></button>
+                   <button class="btn btn-success" data-toggle="modal" data-target="#view{{$pa->id}}"><i class="fa  fa-eye"> </i></button>
+                 </td>
+                </tr>
+                @endforeach
                 
                 </tbody>
                 <tfoot>
@@ -89,16 +95,22 @@ Home
         </div>
         <!-- /.col -->
       </div>
+      <!-- /.row -->
     </section>
-<
+
+  </div>
+
 
  
             
         
 
         <!--MODEL-->
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<?php $e = App\Packages::all();?>
+
+@foreach($e as $t)
+<div class="modal fade" id="view{{$t->id}}">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
         <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
@@ -107,7 +119,13 @@ Home
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <p>Package ID    :  {{$t->id}}          </p>
+         <p>Package Name  :   {{$t->name}}    </p>
+         
+         <p> Details:{!!$t->package!!}    </p>
+        <p> <img src="{{url('/imageupload/'.$t->image)}}" style="height: 500px; width:500px;"></p>
+
+        <p> Status:{{$t->status}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -117,8 +135,9 @@ Home
   </div>
 </div>
 
+<!--Delete-->
 
-<div class="modal modal-danger fade" id="modal-danger">
+<div class="modal modal-danger fade" id="modal-danger{{$t->id}}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -131,7 +150,7 @@ Home
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline">Yes</button>
+               <a href="{{url('/deletepackages/'.$t->id)}}"> <button type="button" class="btn btn-outline">Yes</button></a>
               </div>
             </div>
             <!-- /.modal-content -->
@@ -140,67 +159,72 @@ Home
         </div>
 
 
-        <!--EDIT model-->
-
-
-        <div class="modal fade" id="edit" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
+        <!--Edit-->
+   
+        <div class="modal fade" id="edit{{$t->id}}" >
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Edit</h5>
+        <h5 class="modal-title" id="exampleModalLongTitle"><b>Edit :: {{$t->name}}</b></h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-      <form role="form">
+      <form role="form" action= "{{url('/updatepackage/'.$t->id)}}" enctype="multipart/form-data" method="post">
+          {{csrf_field()}}
+            
               <div class="box-body">
                 <div class="form-group">
                   <label for="name">Package Name</label>
-                  <input type="text" class="form-control" name="name"  id="pname" placeholder="Enter Package Name">
+                  <input type="text" class="form-control" name="name"  id="pname" value="{{$t->name}}">
                 
                 </div>
                 <div class="form-group">
                     <label for="text">Package Details</label>
-                  <textarea name="package" id="summernote" rows="20" cols="80">
+                  <textarea name="package" id="summernote{{$loop->iteration}}" rows="20" cols="80">{!!$t->package!!}
                     
                   </textarea>
                 </div>
                 <div class="form-group">
                   <label for="exampleInputFile">Image</label>
-                  <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
+                  <input type="file" class="form-control" name="image" id="image" >
               </div>
               <div class="form-group">
                   <label for="imgalt">Image Alt</label>
-                  <input type="text" class="form-control" name="imagealt" id="imagealt">
+                  <input type="text" class="form-control" name="imagealt" id="imagealt" value="{{$t->imagealt}}">
               </div>
 
               
-       <div class="form-group">
-        <p>STATUS</p>
-                <label>
-                  <input type="radio" name="r1" class="minimal" checked>Active
+            <div class="form-group">
+                <p>STATUS</p>
+             
+                 <label>
+                  <input type="radio" class="minimal" <?php echo $pa->status == 'active' ? 'checked' :  '' ?> checked name="status" value="active">Active
+
                 </label><br>
                 <label>
-                  <input type="radio" name="r1" class="flat-red">Deactive
+                  <input type="radio"  class="flat-red"  <?php echo $pa->status == 'inactive' ? 'checked' :  '' ?> name="status" value="inactive">Deactive
                 </label>
-                
-              </div>
 
-
-
-              </div>
-              
-
-    </form>
-      </div>
-      <div class="modal-footer">
         
-        <button type="button" class="btn btn-primary">Update</button>
-      </div>
-    </div>
-  </div>
-</div>
-        <!-- Modal -->
+              </div>
+               <div class="modal-footer">
+               <button type="submit" class="btn btn-primary">Update</button>
+              </div>
+         </div>
+         </form>
+         </div>
+         </div>
+         </div>
+         </div>     
+
+
+
+
+
+
+ 
+@endforeach
 
 @endsection
