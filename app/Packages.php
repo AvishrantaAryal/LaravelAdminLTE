@@ -34,7 +34,7 @@ class Packages extends Model
              unlink('imageupload/'.$test->image);
          }
          
-         $test = $this->addimage($data['cover_image']);
+         $test = $this->addimage($data['image']);
          $a['image'] = $test ;
          $a['updated_at'] =Carbon::now('Asia/Kathmandu');
          $replace = array_replace($data,$a);
@@ -67,7 +67,7 @@ class Packages extends Model
   		$data =  Request()->validate([
     	'name' => 'required',
     	'package' => 'required',
-    	'image' => 'required',
+    	'image' => 'required|image',
     	'imagealt' => 'required',
     	'status' => 'required',
 		]);
@@ -84,6 +84,8 @@ class Packages extends Model
 		]);
   		return $data;
 	}
+
+    
 }
 
 

@@ -36,5 +36,20 @@ class PackageController extends Controller
   	return redirect('/allpackages');
 	}
 
+	public function sup($id)
+	{
+		$a = [];
+		$test = DB::table('packages')->where('id',$id)->get()->first();
+		if($test->status=='active')
+		{
+			$a['status'] = 'inactive';
+		}
+		else
+		{
+			$a['status'] = 'active'; 
+		}
+		DB::table('packages')->where('id',$id)->update($a);
+		return redirect('/allpackages');
+	}
 
 }

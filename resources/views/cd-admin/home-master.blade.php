@@ -107,30 +107,7 @@
   </div>
 </body>
 <script   src="https://code.jquery.com/jquery-1.12.1.js"></script>
-<script>
-  $(document).ready(function(){
-    $('.add_another').click(function() {
-      $("#card").append('<div class="group"><hr><div class="form-group"><label class="col-sm-4 control-label">Header</label><div class="col-sm-6"><div class="input-group"><div class="input-group-addon"><i class="fa fa-user"></i></div><input type="text" class="form-control" name="header[]" required="" value="" placeholder="Enter Header" ></div></div></div><div class="form-group"><label class="col-sm-4 control-label"> Description</label><div class="col-sm-6"><div class="input-group"><div class="input-group-addon"><i class="fa fa-pencil"></i></div><textarea type="" name="description[]" class="form-control" rows="5" id="inputDescription3" value="" placeholder="Enter Description"></textarea></div></div></div><label class="col-sm-4 control-label"></label><input type="button" class="remove btn btn-danger" id="close" value="Delete Card"/></div>');
 
-      $('.group').on('click','.remove',function() {
-        $(this).parent().remove();
-      });
-
-    });
-  })
-</script>
-<script>
-  $(document).ready(function () {
-    var count = 1;
-    $("#submitButton").click(function () {
-      if (count >= 2) {
-        $("#submitButton").hide();
-      } else count++
-
-    });
-
-  })
-</script>
 
 
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
@@ -139,7 +116,7 @@
 </script>
 
 <!-- Bootstrap 3.3.6 -->
-<script src="{{url('public/cd-admin/creatu/bootstrap/js/bootstrap.min.js')}}"></script>
+ <script src="{{url('public/cd-admin/creatu/bootstrap/js/bootstrap.min.js')}}"></script>
 
 <!-- Morris.js charts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
@@ -162,7 +139,7 @@
  <script>
 <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"></script>
-{{-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> --}}
+<!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/js/bootstrap.min.js"></script> -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.js"></script>
 <script>
       $(document).ready(function() {

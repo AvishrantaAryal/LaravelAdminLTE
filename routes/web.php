@@ -17,8 +17,12 @@ Route::get('/', function () {
 
 Route::get('/view-all-admin','AdminController@adminshow');
 
-
-Route::get('/about','AdminController@about');
+//ABout
+Route::get('/about','AboutController@about');
+Route::get('/aboutshow','AboutController@aboutshow');
+Route::get('/aboutdetail/{id}','AboutController@aboutdetail');
+Route::post('/aboutstore','AboutController@aboutstore');
+Route::post('/aboutupdate/{id}','AboutController@aboutupdate');
 
 
 //CAROUSEL
@@ -40,6 +44,7 @@ Route::post('/storeservices','ServiceController@store');
 Route::get('/editservices/{id}','ServiceController@edit');
 Route::post('/update/{id}','ServiceController@update');
 Route::get('/delete/{id}','ServiceController@delete');
+Route::post('/statusup/{id}','ServiceController@sup');
 
 //packages
 
@@ -47,7 +52,20 @@ Route::get('/allpackages','PackageController@viewpackage');
 Route::get('/addpackages','PackageController@addpackage');
 Route::post('/storepackages','PackageController@store');
 Route::post('/updatepackage/{id}','PackageController@update');
+Route::post('/status/{id}','PackageController@sup');
 Route::get('/deletepackages/{id}','PackageController@delete');
+
+
+
+
+
+//Review
+Route::get('/addreview','ReviewController@addreview');
+Route::get('/review','ReviewController@viewreview');
+Route::post('/storereview','ReviewController@store');
+Route::post('/updatereview/{id}','ReviewController@update');
+Route::get('/deletereview/{id}','ReviewController@delete');
+Route::post('/statusupdate/{id}','ReviewController@status');
 
 
 Route::get('/bookings','AdminController@booking');
@@ -60,9 +78,7 @@ Route::get('/igallery','AdminController@viewimage');
 	
 Route::get('/addimage','AdminController@addimage');
 
-Route::get('/addreview','AdminController@addreview');
 
-Route::get('/review','AdminController@viewreview');
 
 Route::get('/contact','AdminController@contact');
 
@@ -70,7 +86,7 @@ Route::get('/aseo','AdminController@aseo');
 
 Route::post('/store','AboutController@store')->name('store');
 
-Route::get('/about','AboutController@view');
+
 
 
 

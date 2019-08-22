@@ -25,9 +25,9 @@ Home
 
 <section class="content" style="padding: 40px;">
 	<div class="row">
-    <div style="padding-left: 3px;">
-    <button>
-     <a href="{{url('/addcarousel')}}">Add Carousel</a></button>
+    <div>
+        <a href="{{url('/addcarousel')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">Add Carousel</button></a>
+   
    </div>
       @foreach($car as $car)
 		<div class="container">

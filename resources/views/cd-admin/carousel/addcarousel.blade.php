@@ -10,11 +10,7 @@ Home
   <!-- Content Header (Page header) -->
   <section class="content-header">
     <h1>Add Careousel</h1>
-     @if($errors->any())
-    @foreach($errors->all() as $e)
-      <li>{{$e}}</li>
-    @endforeach
-@endif
+  
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">Carousel</a></li>
@@ -40,19 +36,23 @@ Home
             {{csrf_field()}}
             <div class="box-body">
               <div class="form-group">
+                                <div class="alert-warning">{{$errors->first('name')}}</div>
                 <label for="name">Carousel Name</label>
                 <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Carousel Name">
               
               </div>
               <div class="form-group">
+                                <div class="alert-warning">{{$errors->first('image')}}</div>
                 <label for="exampleInputFile">Image for Carousel</label>
                 <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
             </div>
             <div class="form-group">
+                              <div class="alert-warning">{{$errors->first('alt')}}</div>
                 <label for="imgalt">Alternative Image Text </label>
                 <input type="text" class="form-control" name="alt" id="alt" placeholder="Alternative Image Text">
             </div>
             <div class="form-group">
+                              <div class="alert-warning">{{$errors->first('description')}}</div>
                 <label for="name">Description</label>
                  <textarea name="description" id="summernote" rows="20" cols="80">
                     
@@ -61,12 +61,12 @@ Home
               </div>
                  
        <div class="form-group">
-        <p>STATUS</p>
+        <p>Status</p>
                 <label>
                   <input type="radio" name="status" class="minimal" value="active">Active
-                </label><br>
+                </label>
                 <label>
-                  <input type="radio" name="status" class="flat-red" value="inactive">Deactive
+                  <input type="radio" name="status" class="minimal" value="inactive">Deactive
                 </label>
                 
               </div>

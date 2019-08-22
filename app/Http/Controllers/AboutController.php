@@ -1,54 +1,60 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Input;
 use App\Knowabout;
-
-
+use App\Traits\imageTrait;
+use Illuminate\Support\Facades\DB;
 class AboutController extends Controller
-{
-    public function store(){
-    	$request=Request()->all();
-    	Request()->validate([
-    		'name'=>'required',
-    		'description'=>'required',
-    		'image'=>'required|mimes:jpg,png',
-    		'imagealt'=>'required',
-    		'file'=>'required|mimes:pdf',
-    		'video'=>'required',
-    	]);
-    	$about = new Knowabout;
-    	$about->name=$request->name;
-    	$about->desscription=$request->description;
-    	$about->image=$request->image;
-    	$about->imagealt=$request->imagealt;
-    	$about->file=$about->file;
-    	$about->video=$about->about;
-
-    	if($request->image)
-        {
-         $file= $request->image;
-         $filename = $file->getClientOriginalName();
-         $destinationPath="image_upload";
-         $file->move($destinationPath,$filename);
-         $about->image = $filename;
+{   
+    use imageTrait;
     
-         }
+    public function about(){
+        return view('cd-admin.about.aboutform');
+    }
+
+    public function aboutshow(){
+             $about = DB::table('knowabouts')->get();
+        return view('cd-admin.about.aboutshow',compact('about'));
+    }
+         public function aboutstore(){
+        $request = Request()->all();
+        $vald = $this->validateRequest();
+        $about = new Knowabout;
+        $about['name'] = $request['name'];
+        $about['tagline'] = $request['tagline'];
+        $img = $this->insertimage($request['image']);
+        $about['image']= $img;
+        $about['altimage'] = $request['altimage'];
+        $about['description'] = $request['description'];
+        $pdf = $this->insertfile($request['pdf']);
+        $about['file'] = $pdf;
+        $about['video'] = $request['video'];
          $about->save();
-         return redirect('/about');
+         return redirect('/aboutshow');
+    
+    }
+    public function aboutupdate($id){
+        $request = Request()->all();
+        $vald = $this->uvalidateRequest();
+        $about = Knowabout::where('id',$id)->get()->first();
+        $about['name'] = $request['name'];
+        $about['tagline'] = $request['tagline'];
+        if(request())
+    }
 
 
+
+
+      public function validateRequest(){
+        return Request()->validate([
+            'name' => 'required',
+            'tagline' => 'required',
+            'altimage' => 'required',
+            'description' => 'required',
+            'video' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,JPEG,JPG,PNG',
+            'pdf' => 'required|mimes:pdf',
+        ]);
     }
-    public function view(){
-    	$abouts=Knowabout::all();
-        return view('cd-admin.about.about',compact('about'));
-    }
-    public function edit($id)
-     {
-         if($abouts=Knowabout ::where ('id',$id)->get()->first())
-         {
-             return view('edit',compact('about'));
-         }
-     }
 }

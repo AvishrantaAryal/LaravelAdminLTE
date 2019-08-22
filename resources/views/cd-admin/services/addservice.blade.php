@@ -11,15 +11,9 @@ Home
     <!-- Content Header (Page header) -->
     <section class="content-header">
     <h1>
-  ADD Services
+  ADD SERVVICE
   </h1>
-  <div class="btn-danger">    
-  @if($errors->any())
-    @foreach($errors->all() as $e)
-      <li>{{$e}}</li>
-    @endforeach
-@endif
-</div>
+  
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Services</a></li>
@@ -44,21 +38,25 @@ Home
                {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
-                  <label for="name">service Name</label>
+                  <div class="alert-warning">{{$errors->first('name')}}</div>
+                  <label for="name">Service Name</label>
                   <input type="text" class="form-control" name="name"  id="name" placeholder="Enter service Name">
                 
                 </div>
                 <div class="form-group">
-                    <label for="text">service Details</label>
+                  <div class="alert-warning">{{$errors->first('service')}}</div>
+                    <label for="text">Service Details</label>
                   <textarea name="service" id="summernote" rows="20" cols="80">
                     
                   </textarea>
                 </div>
                 <div class="form-group">
+                  <div class="alert-warning">{{$errors->first('image')}}</div>
                   <label for="exampleInputFile">Image</label>
                   <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
               </div>
               <div class="form-group">
+                <div class="alert-warning">{{$errors->first('imagealt')}}</div>
                   <label for="imgalt">Image Alt</label>
                   <input type="text" class="form-control" name="imagealt" id="imagealt">
               </div>
@@ -67,12 +65,13 @@ Home
 
                
        <div class="form-group">
-              <p>STATUS</p>
+        <div class="alert-warning">{{$errors->first('status')}}</div>
+              <p>Status</p>
                 <label>
-                  <input type="radio" name="status" class="minimal" value="active">Active
-                </label><br>
+                  <input type="radio" name="status" class="minimal" value="active">Avialable
+                </label>
                 <label>
-                  <input type="radio" name="status" class="flat-red" value="inactive">Deactive
+                  <input type="radio" name="status" class="minimal" value="inactive">Not Available
                 </label>
         
               </div>

@@ -16,9 +16,10 @@ class CreateKnowaboutsTable extends Migration
         Schema::create('knowabouts', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->string('tagline');
             $table->string('description');
             $table->string('image');
-            $table->string('imagealt');
+            $table->string('altimage');
             $table->string('file');
             $table->string('video');
 

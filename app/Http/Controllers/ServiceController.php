@@ -84,6 +84,21 @@ public function delete($id){
    return redirect()->to('/allservices');
 }
 
+  public function sup($id)
+  {
+    $a = [];
+    $test = DB::table('services')->where('id',$id)->get()->first();
+    if($test->status=='active')
+    {
+      $a['status'] = 'inactive';
+    }
+    else
+    {
+      $a['status'] = 'active'; 
+    }
+    DB::table('services')->where('id',$id)->update($a);
+    return redirect('/allservices');
+  }
 
 
 public function validationform()
@@ -97,7 +112,7 @@ public function validationform()
         'service'=>'required',
         'imagealt'=>'required',
         'status'=>'required',
-        'image'=>'required',
+        'image'=>'required|image',
 
 
     ]);

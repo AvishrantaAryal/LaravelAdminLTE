@@ -18,7 +18,7 @@ Home
     <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">Carousel</a></li>
-      <li class="active">Add Carousel</li>
+      <li class="active">Edit Carousel</li>
     </ol>
   </section>
 
@@ -41,7 +41,7 @@ Home
             <div class="box-body">
               <div class="form-group">
                 <label for="name">Carousel Name</label>
-                <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Carousel Name" value={{old('name')}}>
+                <input type="text" class="form-control" name="name"  id="name" value="{{$carousel['name']  }}>
               
               </div>
               <div class="form-group">
@@ -61,12 +61,12 @@ Home
               </div>
                  
        <div class="form-group">
-        <p>STATUS</p>
+        <p>Status</p>
                 <label>
                   <input type="radio" name="status" class="minimal" value="active">Active
-                </label><br>
+                </label>
                 <label>
-                  <input type="radio" name="status" class="flat-red" value="inactive">Deactive
+                  <input type="radio" name="status" class="minimal" value="inactive">Deactive
                 </label>
                 
               </div>

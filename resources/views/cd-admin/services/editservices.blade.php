@@ -13,13 +13,13 @@ Home
     <h1>
   Edit Services
   </h1>   
-  <div class="btn-danger"> 
+<!--   <div class="btn-danger"> 
   @if($errors->any())
     @foreach($errors->all() as $e)
       <li>{{$e}}</li>
     @endforeach
 @endif
-</div>
+</div> -->
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Services</a></li>
@@ -45,12 +45,12 @@ Home
                {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
-                  <label for="name">service Name</label>
+                  <label for="name">Service Name</label>
                   <input type="text" class="form-control" name="name"  id="name" value="{{$ser['name']  }}">
                 
                 </div>
                 <div class="form-group">
-                    <label for="text">service Details</label>
+                    <label for="text">Service Details</label>
                   <textarea name="service" id="summernote" rows="20" cols="80"> {!!$ser['service']!!}
                     
                   </textarea>
@@ -68,14 +68,14 @@ Home
 
                
        <div class="form-group">
-        <p>STATUS</p>
+        <p>Status</p>
              
                 <label>
-                  <input type="radio" class="minimal" <?php echo $ser['status'] == 'active' ? 'checked' :  '' ?> checked name="status" value="active">Active
+                  <input type="radio" class="minimal" <?php echo $ser['status'] == 'active' ? 'checked' :  '' ?> checked name="status" value="active">Available
 
                 </label><br>
                 <label>
-                  <input type="radio"  class="flat-red"  <?php echo $ser['status'] == 'inactive' ? 'checked' :  '' ?> name="status" value="inactive">Deactive
+                  <input type="radio"  class="minimal"  <?php echo $ser['status'] == 'inactive' ? 'checked' :  '' ?> name="status" value="inactive">Not Available
                 </label>
         
               </div>

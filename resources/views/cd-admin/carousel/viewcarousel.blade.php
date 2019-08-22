@@ -26,22 +26,33 @@ Home
  <section class="content">
     <div class="row">
       <!-- left column -->
-      <div class="col-md-10">
+      <div class="col-md-12">
         <!-- general form elements -->
-        <div class="box box-primary" style="margin: 20px">
-          <button>
-     <a href="{{url('/addcarousel')}}">Add Carousel</a></button>
+        <div class="box box-primary">
+     <a href="{{url('/addcarousel')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">Add Carousel</button></a>
           <div class="box-header with-border">
             <h3 class="box-title">Carousel</h3>
           </div>
           
           @foreach($car as $car)
           <div>
-          <img src="{{url('/imageupload/'.$car->image)}}" height="auto" width="100%">
+            <div>
+          @if($car->status=='active')
+                      <div class="btn btn-success">Active</div>
+                    @else
+                    <div class="btn btn-danger">Inactive</div>
+                    @endif
+        </div>
+           <center>
+          <img src="{{url('/imageupload/'.$car->image)}}" height="400px;">
+        </center>
           <diV><pre>
-            {{$car->description}}
-          <button class="btn btn-success pull-right">Active</button>
+            Carousel Description :{{$car->description}} 
+            
           </pre>
+
+        </diV>
+        
           
           
         

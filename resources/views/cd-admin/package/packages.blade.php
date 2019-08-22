@@ -16,7 +16,7 @@ Home
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Packages</a></li>
-        <li class="active">View PAckages</li>
+        <li class="active">View Packages</li>
       </ol>
     </section>
 
@@ -26,7 +26,7 @@ Home
            <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                 <a href="{{url('/addpackages')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">ADD</button></a>
+                 <a href="{{url('/addpackages')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">Add Package</button></a>
               </h3>
               @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible">
@@ -55,9 +55,9 @@ Home
                 <thead>
 
                 <tr>
-                  <th>ID</th>
-                  <th>Image</th>
+                  <th>SN</th>
                   <th>Name</th>
+                   <th>Status</th>
                   <th>Action</th>
                   
                 </tr>
@@ -65,9 +65,36 @@ Home
                 <tbody>
                 @foreach($pak as $pa)
                 <tr>
-                  <td>{{$pa->id}}</td>
-                  <td><img src="{{url('/imageupload/'.$pa->image)}}" alt="img" style="height:100px;"> </td>
+                  <td>{{$loop->iteration}}</td>
                   <td>{{$pa->name}}</td>
+                  <td height="75px">
+                     <form action="{{url('/status/'.$pa->id)}}" method="POST">
+                      {{csrf_field()}}
+                    <div class="btn-group">
+
+                 @if($pa->status == 'active')
+                 <button type="button" class="btn btn-success">Available</button>
+                 @else
+                  <button type="button" class="btn btn-danger">Not Available</button>
+                  @endif
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  @if($pa->status == 'active')
+                  <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-danger" type="submit">Not Available</button>
+                    </li>
+                  </div>
+                  @else
+                  <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-success" type="submit">Available</button>
+                    </li>
+                     </div>
+                     @endif
+                </div>
+              </form>
+                     </td>
                   <td>
                     <button class="btn btn-info" data-toggle="modal" data-target="#edit{{$pa->id}}" ><i class="fa fa-edit">
                     </i></button></a>
@@ -113,19 +140,23 @@ Home
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h3 class="modal-title" id="exampleModalLongTitle"><strong>{{$t->name}}</strong></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Package ID    :  {{$t->id}}          </p>
-         <p>Package Name  :   {{$t->name}}    </p>
-         
-         <p> Details:{!!$t->package!!}    </p>
+
+        <p> @if($t->status=='active')
+        <div class="btn btn-success">Available</div>
+
+        @else
+        <div class="btn btn-danger">Not Available</div>
+        @endif</p> 
+         <p><strong><h3>Details :</h3></strong> {!!$t->package!!}    </p>
         <p> <img src="{{url('/imageupload/'.$t->image)}}" style="height: 500px; width:500px;"></p>
 
-        <p> Status:{{$t->status}}
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -165,7 +196,7 @@ Home
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle"><b>Edit :: {{$t->name}}</b></h5>
+        <div class="modal-title" id="exampleModalLongTitle"><b>EDIT :</b>{{$t->name}}</div>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -197,14 +228,14 @@ Home
 
               
             <div class="form-group">
-                <p>STATUS</p>
+                <p>Status</p>
              
                  <label>
-                  <input type="radio" class="minimal" <?php echo $pa->status == 'active' ? 'checked' :  '' ?> checked name="status" value="active">Active
+                  <input type="radio" class="minimal" <?php echo $pa->status == 'active' ? 'checked' :  '' ?> checked name="status" value="active">Available
 
                 </label><br>
                 <label>
-                  <input type="radio"  class="flat-red"  <?php echo $pa->status == 'inactive' ? 'checked' :  '' ?> name="status" value="inactive">Deactive
+                  <input type="radio"  class="minimal"  <?php echo $pa->status == 'inactive' ? 'checked' :  '' ?> name="status" value="inactive">Not Available
                 </label>
 
         

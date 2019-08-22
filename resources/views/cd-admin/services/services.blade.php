@@ -26,7 +26,7 @@ Home
            <div class="box">
             <div class="box-header">
               <h3 class="box-title">
-                <a href="{{url('/addservice')}}"><button class="btn btn-success" style="margin-bottom: 15px;">ADD</button></a>
+                <a href="{{url('/addservice')}}"><button class="btn btn-success" style="margin-bottom: 15px;">ADD New Service</button></a>
               </h3>
               @if(Session::has('success'))
         <div class="alert alert-success alert-dismissible">
@@ -55,9 +55,9 @@ Home
                 <thead>
 
                 <tr>
-                  <th>ID</th>
                   <th>Image</th>
                   <th>Name</th>
+                  <th>Status</th>
                   <th>Action</th>
                   
                 </tr>
@@ -65,9 +65,37 @@ Home
                 <tbody>
                 @foreach($ser as $ser)
                 <tr>
-                  <td>{{$ser->id}}</td>
+                  
                   <td><img src="{{url('/imageupload/'.$ser->image)}}" alt="img" style="height:100px;"> </td>
                   <td>{{$ser->name}}</td>
+                  <td> <form action="{{url('/statusup/'.$ser->id)}}" method="POST">
+                      {{csrf_field()}}
+                    <div class="btn-group">
+
+                 @if($ser->status == 'active')
+                 <button type="button" class="btn btn-success">Available</button>
+                 @else
+                  <button type="button" class="btn btn-danger">Not Available</button>
+                  @endif
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  @if($ser->status == 'active')
+                <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-danger" type="submit">Not Available</button>
+                    </li>
+                    
+                  </div>
+                  @else
+                  <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-success" type="submit">Available</button>
+                    </li>
+                     </div>
+                     @endif
+                </div>
+              </form>
+                </td>
                   <td>
                     <a href="{{url('/editservices/'.$ser->id)}}"><button class="btn btn-info"><i class="fa fa-edit"></i></button></a>
                     <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$ser->id}}"><i class="fa fa-trash"> </i></button>
@@ -112,19 +140,24 @@ Home
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+        <h3 class="modal-title" id="exampleModalLongTitle"><strong>  {{$ser['name']}} </strong></h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Service ID    :  {{$ser->id}}          </p>
-         <p>    Service Name  :   {{$ser['name']}}    </p>
-         
-         <p> Details:{!!$ser['service']!!}    </p>
-        <p> <img src="{{url('/imageupload/'.$ser->image)}}" style="height: 500px; width:500px;"></p>
+        <p> @if($ser->status=='active')
+        <div class="btn btn-success">Available</div>
+        @else
+        <div class="btn btn-danger">Not Available</div>
+        @endif
+      </p> 
+         <p><h3><strong> Details:</strong></h3>{!!$ser['service']!!}    </p>
 
-        <p> Status:{{$ser['status']}}
+        <p>Image
+        <center> <img src="{{url('/imageupload/'.$ser->image)}}" style="height:250px;"></p>
+          </center>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

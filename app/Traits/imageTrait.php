@@ -1,9 +1,11 @@
 <?php
  namespace App\Traits;
 
- trait imageTrait{
+ trait imageTrait
+ {
  	
- 	public function insertimage($image){
+ 	public function insertimage($image)
+ 	{
  		if(isset($image)){
  			$file=$image;
  			$fileName=time().$file->getClientOriginalName();
@@ -13,20 +15,15 @@
  			return $fileName;
  		}
  	}
- }
-
-
-
- trait fileTrait{
- 	
+	
  	public function insertfile($pdf){
  		if(isset($pdf)){
  			$file=$pdf;
- 			$fileName=time().$file->getClientOriginalName();
- 			$destinationpath='pdfupload';
- 			$file->move($destinationpath,$fileName);
+ 			$fileName1=time().$file->getClientOriginalName();
+ 			$destinationpath='fileupload';
+ 			$file->move($destinationpath,$fileName1);
 
- 			return $fileName;
+ 			return $fileName1;
  		}
  	}
  }

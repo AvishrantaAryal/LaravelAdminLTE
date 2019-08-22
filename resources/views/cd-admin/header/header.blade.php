@@ -97,10 +97,10 @@
             <li class="header">Carousel</li>
             
             <li class="treeview">
-                <a href="#">
+                <a href="">
                    <i class="fa fa-picture-o"></i> <span>Carousel</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -116,13 +116,15 @@
                 <a href="#">
                    <i class="fa fa-home"></i> <span>About</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
                     
-                    
-                    <li><a href="{{url('/about')}}"><i class="fa fa-circle-o"></i>View About</a></li>
+                   
+                    <li><a href="{{url('/about')}}"><i class="fa fa-circle-o"></i>Add About</a></li>
+                     <li><a href="{{url('/aboutshow')}}"><i class="fa fa-circle-o"></i>Add About</a></li>
+                   
                 </ul>
             </li>
 
@@ -132,7 +134,7 @@
                 <a href="#">
                     <i class="fa fa-gears"></i> <span>Services</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -148,7 +150,7 @@
                 <a href="#">
                     <i class="fa fa-info"></i> <span>Packages</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -173,7 +175,7 @@
                 <a href="#">
                     <i class="fa fa-picture-o"></i> <span>Gallery</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -192,7 +194,7 @@
                 <a href="#">
                     <i class="fa fa-star"></i> <span>Review</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -218,7 +220,7 @@
                 <a href="#">
                     <i class="fa fa-circle"></i> <span>SEO</span>
                     <span class="pull-right-container">
-                        <i class="fa fa-angle-down "></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
