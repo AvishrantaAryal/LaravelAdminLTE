@@ -58,7 +58,7 @@ Home
       <p class="text-muted text-center">{{$r->address}}</p>
       <pre><b>"Reviewed on : {{$r->created_at}}"
       </b></pre>
-      <p>{{$r->summary}}</p>
+      <p>{{str_limit($r->summary,$limit='100')}}</p>
       <p><form action="{{url('/statusupdate/'.$r->id)}}" method="POST">
                       {{csrf_field()}}
                     <div class="btn-group">
@@ -90,6 +90,7 @@ Home
          <button class="btn btn-info" data-toggle="modal" data-target="#edit{{$r->id}}" ><i class="fa fa-edit">
                     </i></button></a>
          <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$r->id}}"><i class="fa fa-trash"> </i></button>
+         <button class="btn btn-default" data-toggle="modal" data-target="#view{{$r->id}}"><i class="fa fa-eye"> </i></button>
      </div>              
    </div>
    <!-- /.box-body -->
@@ -130,6 +131,37 @@ Home
     </div>
     <!-- /.modal-dialog -->
   </div>
+
+
+
+
+
+
+        <div class="modal fade" id="view{{$t->id}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="view"><strong>Reviewed By :</strong>  {{$t->name}} </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p> @if($t->status=='active')
+        <div class="btn btn-success">Active</div>
+        @else
+        <div class="btn btn-danger">Inactive</div>
+        @endif
+      </p> 
+         <p><h4><strong>Messaage:</strong></h4>{!!$t->summary!!}    </p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+</div>
 
 
 
