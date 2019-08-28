@@ -38,35 +38,35 @@ Home
                {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
-                  <div class="alert-warning">{{$errors->first('name')}}</div>
                   <label for="name">Service Name</label>
-                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter service Name">
+                  <div class="text text-danger">{{$errors->first('name')}}</div>
+                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter service Name" value="{{old('name')}}">
                 
                 </div>
                 <div class="form-group">
-                  <div class="alert-warning">{{$errors->first('service')}}</div>
                     <label for="text">Service Details</label>
-                  <textarea name="service" id="summernote" rows="20" cols="80">
+                     <div class="text text-danger">{{$errors->first('service')}}</div>
+                  <textarea name="service" id="summernote" rows="20" cols="80"value="{{old('service')}}">
                     
                   </textarea>
                 </div>
                 <div class="form-group">
-                  <div class="alert-warning">{{$errors->first('image')}}</div>
                   <label for="exampleInputFile">Image</label>
-                  <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
+                  <div class="text text-danger">{{$errors->first('image')}}</div>
+                  <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image" value="{{old('image')}}">
               </div>
               <div class="form-group">
-                <div class="alert-warning">{{$errors->first('imagealt')}}</div>
-                  <label for="imgalt">Image Alt</label>
-                  <input type="text" class="form-control" name="imagealt" id="imagealt">
+                  <label for="imgalt">Alternative Image Text</label>
+                   <div class="text text-danger">{{$errors->first('imagealt')}}</div>
+                  <input type="text" class="form-control" name="imagealt" id="imagealt" value="{{old('imagealt')}}" placeholder="Enter Alternative Image Text">
               </div>
 
              
 
                
        <div class="form-group">
-        <div class="alert-warning">{{$errors->first('status')}}</div>
               <p>Status</p>
+              <div class="text text-danger">{{$errors->first('status')}}</div>
                 <label>
                   <input type="radio" name="status" class="minimal" value="active">Avialable
                 </label>
@@ -79,10 +79,12 @@ Home
               
               <div class="box-footer" >
                 <button type="submit" class="btn btn-info pull-right">Save</button>
-                <button type="submit" class="btn btn-danger">Cancel</button>
                </div>
 
     </form>
+    <div class="box-footer pull-right" style="margin-left: 10px;">
+    <a href="{{URL()->previous()}}"><button type="submit" class="btn btn-danger">Cancel</button></a>
+          </div>
             
           </div>
           <!-- /.box -->

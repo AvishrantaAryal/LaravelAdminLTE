@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Input;
 use App\Knowabout;
 use App\Traits\imageTrait;
 use Illuminate\Support\Facades\DB;
+use Session;
 class AboutController extends Controller
 {   
     use imageTrait;
@@ -16,10 +17,17 @@ class AboutController extends Controller
     public function aboutshow(){
              $about = DB::table('knowabouts')->get();
         return view('cd-admin.about.aboutshow',compact('about'));
+
+    }
+
+
+    public function aboutdetail($id){
+        $about = DB::table('knowabouts')->where('id',$id)->get()->first();
+        return view('cd-admin.about.aboutdetail',compact('about'));
     }
          public function aboutstore(){
         $request = Request()->all();
-        $vald = $this->validateRequest();
+        $v = $this->validateRequest();
         $about = new Knowabout;
         $about['name'] = $request['name'];
         $about['tagline'] = $request['tagline'];
@@ -34,14 +42,30 @@ class AboutController extends Controller
          return redirect('/aboutshow');
     
     }
-    public function aboutupdate($id){
+    public function aboutupdate($id)
+    {
         $request = Request()->all();
-        $vald = $this->uvalidateRequest();
+        $v = $this->updaterequest();
         $about = Knowabout::where('id',$id)->get()->first();
         $about['name'] = $request['name'];
         $about['tagline'] = $request['tagline'];
-        if(request())
-    }
+        $about['altimage'] = $request['altimage'];
+        $about['description'] = $request['description'];
+        $about['video'] = $request['video'];
+        // if(request()->hasFile('image'))
+        // {
+        //     $img = $this->insertimage($request['image']);
+        //     $about['image']= $img;
+        // }
+        // if(request()->hasFile('pdf')){
+        // $pdf = $this->insertfile($request['pdf']);
+        // $about['file'] = $pdf;
+        $about->save();
+          Session::flash('updatesuccess');
+        return redirect('/aboutshow');
+        }
+
+    
 
 
 
@@ -55,6 +79,16 @@ class AboutController extends Controller
             'video' => 'required',
             'image' => 'required|mimes:jpeg,png,jpg,JPEG,JPG,PNG',
             'pdf' => 'required|mimes:pdf',
+        ]);
+    }
+
+     public function updaterequest(){
+        return Request()->validate([
+            'name' => 'required|max:255',
+            'tagline' => 'required|max:255',
+            'altimage' => 'required|max:255',
+            'description' => 'required',
+            'video' => 'required',
         ]);
     }
 }

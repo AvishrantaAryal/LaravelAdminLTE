@@ -107,9 +107,9 @@ Home
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>Image</th>
+                  <th>S.N</th>
                   <th>Name</th>
+                  <th>Ststus</th>
                   <th>Action</th>
                   
                 </tr>

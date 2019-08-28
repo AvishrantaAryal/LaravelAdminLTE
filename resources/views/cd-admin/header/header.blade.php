@@ -122,8 +122,8 @@
                 <ul class="treeview-menu">
                     
                    
-                    <li><a href="{{url('/about')}}"><i class="fa fa-circle-o"></i>Add About</a></li>
-                     <li><a href="{{url('/aboutshow')}}"><i class="fa fa-circle-o"></i>Add About</a></li>
+                   <!--  <li><a href="{{url('/about')}}"><i class="fa fa-circle-o"></i>Add About</a></li> -->
+                     <li><a href="{{url('/aboutshow')}}"><i class="fa fa-circle-o"></i>Show About</a></li>
                    
                 </ul>
             </li>
@@ -180,10 +180,10 @@
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{url('/gallery')}}"><i class="fa fa-circle-o"></i>View Album</a></li>
-                    <li class="active"><a href="{{url('/igallery')}}"><i class="fa fa-circle-o"></i>View Image</a></li>
+                    <!-- <li class="active"><a href="{{url('/igallery')}}"><i class="fa fa-circle-o"></i>View Image</a></li> -->
                     
                     <li><a href="{{url('/addgallery')}}"><i class="fa fa-circle-o"></i>Add Album</a></li>
-                    <li><a href="{{url('/addimage')}}"><i class="fa fa-circle-o"></i>Add Image</a></li>
+                    <!-- <li><a href="{{url('/addimage')}}"><i class="fa fa-circle-o"></i>Add Image</a></li> -->
                 </ul>
                 </li>
            

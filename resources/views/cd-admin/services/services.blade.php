@@ -55,7 +55,7 @@ Home
                 <thead>
 
                 <tr>
-                  <th>Image</th>
+                  <th>S.N</th>
                   <th>Name</th>
                   <th>Status</th>
                   <th>Action</th>
@@ -66,9 +66,9 @@ Home
                 @foreach($ser as $ser)
                 <tr>
                   
-                  <td><img src="{{url('/imageupload/'.$ser->image)}}" alt="img" style="height:100px;"> </td>
+                  <td>{{$loop->iteration}} </td>
                   <td>{{$ser->name}}</td>
-                  <td> <form action="{{url('/statusup/'.$ser->id)}}" method="POST">
+                  <td height="75px"> <form action="{{url('/statusup/'.$ser->id)}}" method="POST">
                       {{csrf_field()}}
                     <div class="btn-group">
 
@@ -107,9 +107,9 @@ Home
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>Image</th>
+                  <th>S.N</th>
                   <th>Name</th>
+                  <th>Status</th>
                   <th>Action</th>
                   
                 </tr>
@@ -154,7 +154,7 @@ Home
       </p> 
          <p><h3><strong> Details:</strong></h3>{!!$ser['service']!!}    </p>
 
-        <p>Image
+        <p><h3><strong> Image :</strong></h3>
         <center> <img src="{{url('/imageupload/'.$ser->image)}}" style="height:250px;"></p>
           </center>
         

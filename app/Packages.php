@@ -65,7 +65,7 @@ class Packages extends Model
 	{
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required',
+    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
     	'package' => 'required',
     	'image' => 'required|image',
     	'imagealt' => 'required',
@@ -76,7 +76,7 @@ class Packages extends Model
 	public function updatevalidation()
 	{
 		 $data =  Request()->validate([
-    	'name' => 'required',
+    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
     	'package' => 'required',
     	'imagealt' => 'required',
     	'status' => 'required',

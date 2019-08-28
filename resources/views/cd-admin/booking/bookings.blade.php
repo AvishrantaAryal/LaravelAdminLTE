@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Bookings
 @endsection
 
 @section('content')

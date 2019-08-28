@@ -12,13 +12,7 @@ Home
       <h1>
   ADD REVIEW
   </h1>
-   <div class="btn-danger">    
-  @if($errors->any())
-    @foreach($errors->all() as $e)
-      <li>{{$e}}</li>
-    @endforeach
-@endif
-</div>
+   
      
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -45,25 +39,29 @@ Home
               <div class="box-body">
                 <div class="form-group">
                   <label for="name"> Name</label>
-                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Name">
+                  <div class="text text-danger">{{$errors->first('name')}}</div>
+                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Name" value="{{old('name')}}">
                 
                 </div>
                 <div class="form-group">
                   <label for="name"> Address</label>
-                  <input type="text" class="form-control" name="address"  id="address" placeholder="Enter Address">
+                  <div class="text text-danger">{{$errors->first('address')}}</div>
+                  <input type="text" class="form-control" name="address"  id="address" placeholder="Enter Address" value="{{old('address')}}">
                 
                 </div>
                 <div class="form-group">
                     <label for="text">Message</label>
-                  <textarea name="summary" class="form-control"></textarea>
+                    <div class="text text-danger">{{$errors->first('summary')}}</div>
+                  <textarea name="summary" class="form-control" value="{{old('summary')}}"></textarea>
                 </div>
                 <div class="form-group">
-        <p>STATUS</p>
+        <p>Status</p>
+        <div class="text text-danger">{{$errors->first('status')}}</div>
                 <label>
                   <input type="radio" name="status" class="minimal" value="active">Active
-                </label><br>
+                </label>
                 <label>
-                  <input type="radio" name="status" class="flat-red" value="inactive">Deactive
+                  <input type="radio" name="status" class="minimal" value="inactive">Deactive
                 </label>
                 
               </div>
@@ -74,11 +72,13 @@ Home
               </div>
               <div class="box-footer" >
                 <button type="submit" class="btn btn-info pull-right">Save</button>
-                <button type="submit" class="btn btn-danger">Cancel</button>
                </div>
 
     
             </form>
+            <div class="box-footer" style="margin-left: 10px;">
+            <a href="{{URL()->previous()}}"><button type="submit" class="btn btn-danger">Cancel</button></a>
+            </div>
           </div>
           <!-- /.box -->
       </div>

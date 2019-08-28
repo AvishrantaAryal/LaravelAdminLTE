@@ -17,6 +17,7 @@ Route::get('/', function () {
 
 Route::get('/view-all-admin','AdminController@adminshow');
 
+
 //ABout
 Route::get('/about','AboutController@about');
 Route::get('/aboutshow','AboutController@aboutshow');
@@ -27,9 +28,10 @@ Route::post('/aboutupdate/{id}','AboutController@aboutupdate');
 
 //CAROUSEL
 Route::get('/carousel','CarouselController@carousel');
-Route::get('/viewcarousel','CarouselController@viewcarousel');
 Route::get('/addcarousel','CarouselController@addcarousel');
 Route::post('/storecarousel','CarouselController@store');
+Route::post('/statuscar/{id}','CarouselController@statusupdate');
+Route::get('/deletecar/{id}','CarouselController@delete');
 
 
 
@@ -38,7 +40,6 @@ Route::post('/storecarousel','CarouselController@store');
 
 //SERVICES
 Route::get('/allservices','ServiceController@viewservice');
-
 Route::get('/addservice','ServiceController@addservice');
 Route::post('/storeservices','ServiceController@store');
 Route::get('/editservices/{id}','ServiceController@edit');
@@ -46,8 +47,9 @@ Route::post('/update/{id}','ServiceController@update');
 Route::get('/delete/{id}','ServiceController@delete');
 Route::post('/statusup/{id}','ServiceController@sup');
 
-//packages
 
+
+//packages
 Route::get('/allpackages','PackageController@viewpackage');
 Route::get('/addpackages','PackageController@addpackage');
 Route::post('/storepackages','PackageController@store');
@@ -68,15 +70,26 @@ Route::get('/deletereview/{id}','ReviewController@delete');
 Route::post('/statusupdate/{id}','ReviewController@status');
 
 
+
+//Gallery
+
+Route::get('/addgallery','GalleryController@create');
+Route::get('/gallery','GalleryController@viewalbum');
+Route::get('/igallery/{id}','GalleryController@image');
+Route::get('/addimage/{id}','GalleryController@addimage');
+Route::post('/gallerystore','GalleryController@gstore');
+Route::get('/deletegallery/{id}','GalleryController@gremove');
+Route::post('/imagestore/{id}','GalleryController@istore');
+Route::get('/deleteimage/{id}','GalleryController@iremove');
+Route::Post('/gsupdate/{id}','GalleryController@gsupdate');
+Route::Post('/isupdate/{id}','GalleryController@isupdate');
+
+
+
+
+
 Route::get('/bookings','AdminController@booking');
 
-Route::get('/addgallery','AdminController@addalbum');
-
-Route::get('/gallery','AdminController@viewalbum');
-	
-Route::get('/igallery','AdminController@viewimage');
-	
-Route::get('/addimage','AdminController@addimage');
 
 
 

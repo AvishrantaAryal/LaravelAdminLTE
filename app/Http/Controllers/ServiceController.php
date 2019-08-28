@@ -108,7 +108,7 @@ public function validationform()
     {
 
        $imagerequest = Request()->validate([
-        'name'=>'required',
+        'name'=>'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
         'service'=>'required',
         'imagealt'=>'required',
         'status'=>'required',
@@ -122,7 +122,7 @@ public function validationform()
    else
    {
        $formrequest = Request()->validate([
-        'name'=>'required',
+        'name'=>'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
         'service'=>'required',
         'imagealt'=>'required',
         'status'=>'required',

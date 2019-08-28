@@ -10,7 +10,7 @@ Home
 <!-- Content Header (Page header) -->
 
 	 <section class="content-header">
-  <h1>
+  <h1 style="padding-left: 10px;">
    Album
     
   </h1>
@@ -26,62 +26,95 @@ Home
 <section class="content" style="padding: 40px;">
 	<div class="row">
     <div style="padding-left: 3px;">
-    <button>
-     <a href="{{url('/addgallery')}}">Add Album</a></button>
+     <a href="{{url('/addgallery')}}"><button class="btn btn-success" style="margin-bottom: 10px; ">Add Album</button></a>
    </div>
+    @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible">
+          <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Inserted Successfully</strong>
+          {{Session::get("message", '')}}
+        </div>
+         @elseif(Session::has('deletesuccess'))
+        <div class="alert alert-danger alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Deleted Successfully</strong>
+          {{Session::get("message", '')}}
+        </div>
+       
+       @endif
+
+      @foreach($gal as $g)
+
 		<div class="container">
-		<img src="{{asset('public/cd-admin/images/2.jpg')}}" alt="">
+      <div style="height: 85px;">
+        <form action="{{url('/gsupdate/'.$g->id)}}" method="POST">
+                      {{csrf_field()}}
+                    <div class="btn-group">
+
+                 @if($g->status == 'active')
+                 <button type="button" class="btn btn-success">Active</button>
+                 @else
+                  <button type="button" class="btn btn-danger">Inactive</button>
+                  @endif
+                  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="caret"></span>
+                    <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                  @if($g->status == 'active')
+                  <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-danger" type="submit">Inactive</button>
+                    </li>
+                  </div>
+                  @else
+                  <div class="dropdown-menu" role="menu" style="min-width: 0px;">
+                    <li> <button class="btn btn-success" type="submit">Active</button>
+                    </li>
+                     </div>
+                     @endif
+                </div>
+              </form>
+     </div>
+
+     <p><strong> Album Name : </strong>{{$g->name}}</p>
+
+      <img src="{{url('/imageupload/'.$g->image)}}">
+	
 			<div>
-		<button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash"></i></button>
-		<button class="btn btn-success pull-right">Active</button>
-    <button class="btn btn-default"> <a href="{{url('/igallery')}}">view</button>
+		<button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger{{$g->id}}"><i class="fa fa-trash"></i></button>
+    <a href="{{url('/igallery/'.$g->id)}}"><button class="btn btn-primary pull-right"><i class="fa fa-eye"></i></button></a>
 		 </div>
+     
+      </div>
+      @endforeach
+  
+	
+  </section>
+  </div>
+  <style type="text/css">
 
-</div>
-	<div class="container">
-		<img src="{{asset('public/cd-admin/images/2.jpg')}}" alt="">
-			<div>
-		<button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash"></i></button>
-		<button class="btn btn-success pull-right">Active</button>
-    <button class="btn btn-default"> <a href="{{url('/igallery')}}">view</button>
-		 </div>
+  .container{
+  width: calc(33% - 6px);
+  overflow:hidden;
+  height: fit-content;
+  margin:3px;
+  padding: 0;
+  display:block;
+  position:relative;
+  float:left;
+  border: solid;
+  border-color: aliceblue;
+    }
 
-
-</div>
-<div class="container">
-		<img src="{{asset('public/cd-admin/images/2.jpg')}}" alt="">
-			<div>
-		<button class="btn btn-danger"  data-toggle="modal" data-target="#modal-danger"><i class="fa fa-trash"></i></button>
-		<button class="btn btn-success pull-right">Active</button>
-    <button class="btn btn-default"> <a href="{{url('/igallery')}}">view</button>
-		 </div>
-
-</div>
-
-</section>
-</div>
-<style type="text/css">
-
-.container{
-width: calc(33% - 6px);
-overflow:hidden;
-height: fit-content;
-margin:3px;
-padding: 0;
-display:block;
-position:relative;
-float:left;
-}
-img{
-width: 350px;
-height: 350px;
-transition-duration: .3s;
-max-width: 100%;
-display:block;
-overflow:hidden;
-cursor:pointer;
-}
-@media only screen and (max-width: 900px) {
+  img{
+  width: 350px;
+  height: 350px;
+  transition-duration: .3s;
+  max-width: 100%;
+  display:block;
+  overflow:hidden;
+  cursor:pointer;
+  }
+  @media only screen and (max-width: 900px) {
 .container {
     width: calc(50% - 6px);
 }
@@ -95,9 +128,10 @@ cursor:pointer;
 
 
 
+<?php $e = App\Gallery::all();?>
 
-
-<div class="modal modal-danger fade" id="modal-danger">
+@foreach($e as $g)
+<div class="modal modal-danger fade" id="modal-danger{{$g->id}}">
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
@@ -110,11 +144,13 @@ cursor:pointer;
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-            <button type="button" class="btn btn-outline">Yes</button>
+           <a href="{{url('/deletegallery/'.$g->id)}}"> <button type="button" class="btn btn-outline">Yes</button></a>
           </div>
         </div>
         <!-- /.modal-content -->
       </div>
       <!-- /.modal-dialog -->
     </div>
+
+    @endforeach
 @endsection

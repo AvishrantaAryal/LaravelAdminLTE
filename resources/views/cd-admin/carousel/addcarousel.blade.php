@@ -36,24 +36,24 @@ Home
             {{csrf_field()}}
             <div class="box-body">
               <div class="form-group">
-                                <div class="alert-warning">{{$errors->first('name')}}</div>
                 <label for="name">Carousel Name</label>
-                <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Carousel Name">
+                <div class="text text-danger">{{$errors->first('name')}}</div>
+                <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Carousel Name" value="{{Request::old('name')}}">
               
               </div>
               <div class="form-group">
-                                <div class="alert-warning">{{$errors->first('image')}}</div>
                 <label for="exampleInputFile">Image for Carousel</label>
-                <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
+                <div class="text text-danger">{{$errors->first('image')}}</div>
+                <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image" value="{{Request::old('image')}}">
             </div>
             <div class="form-group">
-                              <div class="alert-warning">{{$errors->first('alt')}}</div>
                 <label for="imgalt">Alternative Image Text </label>
-                <input type="text" class="form-control" name="alt" id="alt" placeholder="Alternative Image Text">
+                <div class="text text-danger">{{$errors->first('alt')}}</div>
+                <input type="text" class="form-control" name="alt" id="alt" placeholder="Alternative Image Text" value="{{Request::old('alt')}}">
             </div>
             <div class="form-group">
-                              <div class="alert-warning">{{$errors->first('description')}}</div>
                 <label for="name">Description</label>
+                <div class="text text-danger">{{$errors->first('description')}}</div>
                  <textarea name="description" id="summernote" rows="20" cols="80">
                     
                   </textarea>
@@ -62,6 +62,7 @@ Home
                  
        <div class="form-group">
         <p>Status</p>
+        <div class="text text-danger">{{$errors->first('status')}}</div>
                 <label>
                   <input type="radio" name="status" class="minimal" value="active">Active
                 </label>
@@ -74,14 +75,18 @@ Home
 
             
 
-            </div>
+            
 
             <div class="box-footer" >
-              <button type="submit" class="btn btn-info pull-right">Save</button>
-              <button type="submit" class="btn btn-danger">Cancel</button>
+              <button type="submit" class="btn btn-info">Add Carousel</button>
+              
+             </div>
              </div>
 
 	</form>
+  <div class="box-footer" style="margin-left: 10px;">
+    <a href="{{URL()->previous()}}"><button type="submit" class="btn btn-danger">Cancel</button></a>
+          </div>
           </div>
         </div>
         

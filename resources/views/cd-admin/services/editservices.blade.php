@@ -83,10 +83,12 @@ Home
               
               <div class="box-footer" >
                 <button type="submit" class="btn btn-info pull-right">Update</button>
-                <button class="btn btn-danger">Cancel</button>
                </div>
 
     </form>
+    <div class="box-footer" style="margin-left: 10px;">
+    <a href="{{URL()->previous()}}"><button type="submit" class="btn btn-danger">Cancel</button></a>
+          </div>
     
             
           </div>

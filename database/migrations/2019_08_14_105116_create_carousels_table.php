@@ -18,7 +18,7 @@ class CreateCarouselsTable extends Migration
             $table->string('name');
             $table->longtext('description');
             $table->string('image');
-            $table->string('imagealt');
+            $table->string('alt');
             $table->string('status')
 ;            $table->timestamps();
         });

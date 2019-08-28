@@ -1,86 +1,80 @@
 @extends('cd-admin.home-master')
-
-@section('page-title')  
-Home
+@section('page-title')
+Add Image
 @endsection
-
 @section('content')
-
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
-  <section class="content-header">
-    <h1>Add Images</h1>
-    <ol class="breadcrumb">
+  <div class="container-fluid">
+    <section class="content-header">
+      <h1>
+      Add Image
+      </h1>
+      <ol class="breadcrumb">
       <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
       <li><a href="#">Gallery</a></li>
       <li class="active">Add Image</li>
     </ol>
-  </section>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+        <!-- left column -->
+        <div class="col-md-12">
+          <!-- general form elements -->
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <!-- <a href=""><button class="btn btn-primary pull-right">Add Image</button></a> -->
+              <h3 class="box-title">Add Image </h3>
+            </div>
+            <form role="form" action="{{url('imagestore',$g->id)}}" method="POST" enctype="multipart/form-data">
+              {{csrf_field()}}
 
-  <section class="content">
-    <div class="row">
-      
-      <!-- left column -->
-      <div class="col-md-12">
-        <!-- general form elements -->
-        <div class="box box-primary" style="margin-top: 20px">
-          <div class="box-header with-border">
-            <h3 class="box-title">Add Image</h3>
-          </div>
-          <!-- /.box-header -->
-          <!-- form start -->
-          <form role="form">
-            <div class="box-body">
-              <div class="form-group">
-                <label for="name">Album Name : </label>
-                <select class="form-control select2 select2-hidden-accessible" style="width: 100%;" data-select2-id="9" tabindex="-1" aria-hidden="true">
-                    <option selected="selected" data-select2-id="11">Resturant</option>
-                    <option data-select2-id="13">Farm</option>
-                    <option data-select2-id="13">Resturant</option>
-                    <option data-select2-id="13">Rooms</option>
-                    
-                  </select>
-              
-              </div>
-              <div class="form-group">
-                <label for="exampleInputFile">Image </label>
-                <input type="file" class="form-control" name="image" id="image" placeholder="Choose Image">
-            </div>
-            <div class="form-group">
-                <label for="imgalt">Alternative Image Text </label>
-                <input type="text" class="form-control" name="imagealt" id="imagealt" placeholder="Alternative Image Text">
-            </div>
+
+              <div class="box-body">
+                <div class="form-group">
+                  <strong>Album:</strong> {{$g->name}}
+                  <input type="hidden" name="gallery_id" value="{{$g->id}}">
+                  
                       
-       <div class="form-group">
-        <p>STATUS</p>
-                <label>
-                  <input type="radio" name="status" class="minimal" value="active">Active
-                </label><br>
-                <label>
-                  <input type="radio" name="status" class="flat-red" value="inactive">Deactive
-                </label>
-                
-              </div>
-       
+                  
 
-            
+                 </div>
+                <div class="form-group">
+                  <label for="image"> Image</label>
+                   <div class="text text-danger">{{$errors->first('image')}}</div>
+                  <input type="file" name="image" >
+                </div>
+                <div class="form-group">
+                  
+                    <label for="altimage">Alternative Image Text</label>
+                    <div class="text text-danger">{{$errors->first('altimage')}}</div>
+                    <input type="text" name="altimage" value="{{old('altimage')}}" class="form-control" id="altimage" placeholder="Enter Alternative Image Text For Album">
+                  </div>
 
+                  <div class="form-group">
+
+              <label>
+                <input type="radio" class="minimal" name="status" value="active" <?php echo old('status')=='active' ? 'checked' : ' '  ?> >
+                Active
+              </label>
+              <label>
+                <input type="radio" name="status" class="minimal" value="inactive" <?php echo old('status')=='inactive' ? 'checked' : ' '  ?>>
+                Inactive
+              </label>
             </div>
-
-            <div class="box-footer" >
-              <button type="submit" class="btn btn-info pull-right">Save</button>
-              <button type="submit" class="btn btn-danger">Cancel</button>
-             </div>
-
-  </form>
+                <div class="box-footer">
+                  <button type="submit" class="btn btn-primary">Add Image</button>
+                </div>
+              </div>  
+            </form>
+            <div class="box-footer">
+              <a href="{{ URL()->previous() }}"><button class="btn btn-danger" style="margin-left: 10px;">Cancel</button></a>
+            </div>
           </div>
         </div>
-      
-        <!-- /.box -->
-    </div>
-
-</section>
-</div>
-
-
+      </div>
+        
+    </section>
+  </div>
+  </div>
 @endsection

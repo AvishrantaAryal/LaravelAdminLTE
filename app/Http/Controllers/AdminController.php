@@ -21,19 +21,7 @@ class AdminController extends Controller
 	public function booking(){
 		return view('cd-admin.booking.bookings');
 	}
-	public function addalbum(){
-		return view('cd-admin.gallery.addgallery');
-
-	}
-	public function viewalbum(){
-		return view('cd-admin.gallery.viewgallery');
-	}
-	public function addimage(){
-		return view('cd-admin.gallery.addimage');
-	}
-	public function viewimage(){
-		return view('cd-admin.gallery.imageview');
-	}
+	
 	public function viewreview(){
 		return view('cd-admin.review.review');
 	}

@@ -17,7 +17,7 @@ class CreateKnowaboutsTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('tagline');
-            $table->string('description');
+            $table->longtext('description');
             $table->string('image');
             $table->string('altimage');
             $table->string('file');
