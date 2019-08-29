@@ -33,13 +33,13 @@ Home
            Email :Nina@Mcintire.com
 
             
-            <pre><b>"Recived on : 20 Dec 2018"
-            </b></pre>
+            <pre class="mailbox-read-time">
+            </pre>
             Had a fantastic weekend in Rome and was very impressed with the hotel and staff. They were always on hand to help you out. Breakfast was delicious too
            
              <div class="modal-footer">
       
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Reply</button>
+       <a href="{{url('/replycontact')}}"><button type="button" class="btn btn-primary">Reply</button></a>
     </div>
               
             
@@ -48,30 +48,6 @@ Home
           <!-- /.box-body -->
         </div>
 
-        <div class="col-md-4">
-
-        <!-- Profile Image -->
-        <div class="box box-primary">
-          <div class="box-body box-profile">
-            
-           Name : Nina Mcintire<br>
-           Email :Nina@Mcintire.com
-
-            
-            <pre><b>"Recived on : 20 Dec 2018"
-            </b></pre>
-            Had a fantastic weekend in Rome and was very impressed with the hotel and staff. They were always on hand to help you out. Breakfast was delicious too
-           
-             <div class="modal-footer">
-      
-      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Reply</button>
-    </div>
-              
-            
-          </div>              
-          </div>
-         
-        </div>
       </div>
   
   

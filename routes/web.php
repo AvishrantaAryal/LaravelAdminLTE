@@ -88,12 +88,22 @@ Route::Post('/isupdate/{id}','GalleryController@isupdate');
 
 
 
+
+//Contact
+
+Route::get('/contact','ContactController@contact');
+Route::get('/replycontact','ContactController@replyform');
+ROute::get('/storeontact','ContactController@store');
+
+
+
+
 Route::get('/bookings','AdminController@booking');
 
 
 
 
-Route::get('/contact','AdminController@contact');
+
 
 Route::get('/aseo','AdminController@aseo');
 

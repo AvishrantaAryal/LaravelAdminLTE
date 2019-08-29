@@ -28,9 +28,7 @@ class AdminController extends Controller
 	public function addreview(){
 	return view('cd-admin.review.addreview');
 	}
-	public function contact(){
-		return view('cd-admin.contact.contact');
-	}
+	
 	public function aseo()
 	{
 		return view('cd-admin.seo.aboutseo');
