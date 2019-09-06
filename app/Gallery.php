@@ -54,6 +54,10 @@ class Gallery extends Model
     	'image' => 'required|image',
     	'altimage' => 'required',
     	'status'=>'required',
+      'title'=>'required|max:60',
+      'keywords'=>'required|max:60',
+      'sdes'=>'required|max:60'
+
     	]);
   		return $data;
   	}

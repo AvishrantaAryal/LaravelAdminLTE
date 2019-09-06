@@ -20,6 +20,7 @@ class CreatePackagesTable extends Migration
             $table->string('image');
             $table->string('imagealt');
             $table->string('status');
+            $table->string('slug');
             
             $table->timestamps();
         });

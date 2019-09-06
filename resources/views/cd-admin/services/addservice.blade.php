@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Add Services
 @endsection
 
 @section('content')
@@ -68,7 +68,7 @@ Home
               <p>Status</p>
               <div class="text text-danger">{{$errors->first('status')}}</div>
                 <label>
-                  <input type="radio" name="status" class="minimal" value="active">Avialable
+                  <input type="radio" name="status" class="minimal" value="active">Available
                 </label>
                 <label>
                   <input type="radio" name="status" class="minimal" value="inactive">Not Available

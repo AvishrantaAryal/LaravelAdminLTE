@@ -42,7 +42,7 @@ Mail Store
                 <div class="form-group">
                   <label for="name">Name</label>
                   <div class="text text-danger">{{$errors->first('name')}}</div>
-                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Receiver`s Address">
+                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Name">
                 
                 </div>
 
@@ -50,6 +50,13 @@ Mail Store
                   <label for="name">Email</label>
                   <div class="text text-danger">{{$errors->first('email')}}</div>
                   <input type="text" class="form-control" name="email"  id="name" placeholder="Enter Email ID">
+                
+                </div>
+
+                <div class="form-group">
+                  <label for="name">Subject</label>
+                  <div class="text text-danger">{{$errors->first('subject')}}</div>
+                  <input type="text" class="form-control" name="subject"  id="subject" placeholder="Enter Subject">
                 
                 </div>
                 <div class="form-group">

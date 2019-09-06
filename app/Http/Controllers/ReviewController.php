@@ -9,7 +9,8 @@ use DB;
 class ReviewController extends Controller
 {
     public function viewreview(){
-		$re=DB::table('reviews')->get();
+		$re=DB::table('reviews')->paginate(6);
+		
         return view('cd-admin.review.review',compact('re'));
 	}
 	public function addreview(){

@@ -1,89 +1,160 @@
 @extends('cd-admin.home-master')
-
-@section('page-title')  
-Home
+@section('page-title')
+Contact inbox
 @endsection
 @section('content')
-
-
+<!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
-<!-- Content Header (Page header) -->
-<section class="content-header">
- <h1>
-  Contacts
- </h1>
-  <ol class="breadcrumb">
-    <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-    <li><a href="#">Contact</a></li>
-    
-  </ol>
-</section>
+  <!-- Content Header (Page header) -->
+  <div class="container-fluid">
+    <section class="content-header">
+      <h1>
+      Inbox
+      </h1>
+       <ol class="breadcrumb">
+      <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+      <li><a href="#">Contact</a></li>
+      <li class="active">Inbox</li>
+    </ol>
+    </section>
+    <!-- Main content -->
+    <section class="content">
+      <div class="row">
+   <div class="col-md-12">
+          <div class="box box-primary">
+            <div class="box-header with-border">
+              <h3 class="box-title">Inbox</h3>
 
-<section class="content">
-
-<div class="row" style="padding: 5px;">
-      
-      <div class="col-md-4">
-
-        <!-- Profile Image -->
-        <div class="box box-primary">
-          <div class="box-body box-profile">
-            
-           Name : Nina Mcintire<br>
-           Email :Nina@Mcintire.com
-
-            
-            <pre class="mailbox-read-time">
-            </pre>
-            Had a fantastic weekend in Rome and was very impressed with the hotel and staff. They were always on hand to help you out. Breakfast was delicious too
-           
-             <div class="modal-footer">
-      
-       <a href="{{url('/replycontact')}}"><button type="button" class="btn btn-primary">Reply</button></a>
-    </div>
-              
-            
-          </div>              
-          </div>
-          <!-- /.box-body -->
+             @if(Session::has('deletesuccess'))
+        <div class="alert alert-danger alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Deleted Successfully</strong>
+          {{Session::get("message", '')}}
         </div>
+        @endif
+        
+            </div>
+            <!-- /.box-header -->
+            <div class="box-body no-padding">
+                 <a href="{{url('/contact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
+               
+              <div class="table-responsive mailbox-messages">
+                <table class="table table-hover table-striped">
+                  <tbody>
+                    @foreach($c as $contact)
+                  <tr>
+                    <td class="mailbox-star"><button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$contact->id}}"><i class="fa fa-trash"> </i></button>
 
+                      <button class="btn btn-default" data-toggle="modal" data-target="#view{{$contact->id}}"><i class="fa fa-eye"></i></button>
+
+                    </td> 
+                    <td>
+                      <?php $test = App\Reply::where('email',$contact->email)->where('contact_id',$contact->id)->orderBy('id','desc')->get()->first();
+                         ?>
+                         @if($test=='')
+
+                       
+                        
+                          <div class="alert alert-info" style="padding: 2px; width: 55px;" >Unseen</div>
+
+
+                        @else($test['active']=='Replyed')
+
+                       
+                        <div class="alert alert-success" style="padding: 2px; width: 55px;" >seen</div>
+
+
+
+                        @endif
+
+                    </td>
+                    
+                      <td class="mailbox-name">{{$contact->name}}
+                    <td class="mailbox-subject"><strong>{{$contact->subject}}</strong>
+                      <td class="mailbox-subject">{!!str_limit($contact->message,$limits='50')!!}
+                      </td>
+                    </td>
+                    
+                    <td class="mailbox-date">
+                      <?php $date = Carbon\Carbon::parse($contact->created_at);
+                     $now = Carbon\Carbon::now();
+                      $diff = $date->diffForHumans($now);
+                      ?>
+                      {{$diff}}
+                    </td>
+                   
+                  </tr>
+                   @endforeach
+                  
+                  </tbody>
+                </table>
+                <!-- /.table -->
+              </div>
+              <!-- /.mail-box-messages -->
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer no-padding">
+              {!!$c->links()!!}
+                  <a href="{{url('/contact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
+               
+                <!-- /.pull-right -->
+              </div>
+            </div>
+          </div>
       </div>
-  
-  
-</section>
+    </section>
+  </div>
 </div>
 
-
-<!-- Modal -->
-
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body">
-      <form>
-        <div class="form-group">
-          <label for="recipient-name" class="col-form-label">Recipient:</label>
-          <input type="text" class="form-control" id="recipient-name">
-        </div>
-        <div class="form-group">
-          <label for="message-text" class="col-form-label">Message:</label>
-          <textarea class="form-control" id="message-text"></textarea>
-        </div>
-      </form>
-    </div>
-    <div class="modal-footer">
-      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-      <button type="button" class="btn btn-primary">Send message</button>
+<?php $e = App\Contact::get()->first();?>
+<?php $d = App\Reply::get()->first();?>
+<div class="modal fade" id="view{{$e['id']}}">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h3 class="modal-title" id="view"><strong>Name :</strong>  {{$e['name']}} </h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+         <pre><strong>E-mail : </strong>{{$e['email']}}    </pre>
+        <pre><strong>Subject :</strong>{{$e['subject']}}    </pre>
+        <p><strong>Message : <br></strong>{!!$e['message']!!} </p>
+      </div>
+      <div class="modal-footer">
+        @if($d['status'] == 'active')
+          <button type="button" class="btn btn-success btn-sm pull-left">Replyed</button>
+        @else
+        <a href="{{url('/replycontact/'.$e['id'])}}"><button type="submit" class="btn btn-primary pull-left">Reply</button></a>
+        @endif
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        
+      </div>
     </div>
   </div>
 </div>
-</div>
-    @endsection
+
+
+<div class="modal modal-danger fade" id="modal-danger{{$e['id']}}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Message from web</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete ?&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+              <a href="{{url('/deleteinbox/'.$e['id'])}}"> <button type="button" class="btn btn-outline">Yes</button></a>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+@endsection

@@ -11,5 +11,6 @@ use Carbon\Carbon;
 class Contact extends Model
 {
     protected $guarded=[];
+
     
 }

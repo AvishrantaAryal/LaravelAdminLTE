@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Galley
+View Gallery
 @endsection
 
 @section('content')

@@ -37,7 +37,7 @@ Bookings
             </div>
             <div class="box-body no-padding">
               <ul class="nav nav-pills nav-stacked">
-                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox
+                <li class="active"><a href="#"><i class="fa fa-inbox"></i> Inbox</a>
                   
               </ul>
             </div>
@@ -51,32 +51,63 @@ Bookings
           <div class="box box-primary">
             <div class="box-header with-border">
               <h3 class="box-title">Inbox</h3>
-
+                 @if(Session::has('deletesuccess'))
+        <div class="alert alert-danger alert-dismissible">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Deleted Successfully</strong>
+          {{Session::get("message", '')}}
+        </div>
+        @endif
+         
              
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
-               <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
                
-              </div>
+                
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
+                 
                   <tbody>
+                    @foreach($c as $b)
                   <tr>
-                    <td><input type="checkbox"></td>
-                    <td class="mailbox-star"><a href="#"><i class="fa fa-star-o text-yellow"></i></a></td>
-                    <td class="mailbox-name"><a data-toggle="modal" data-target="#exampleModalLong">Alexander Pierce</a></td>
-                    <td class="mailbox-subject"><b>AdminLTE 2.0 Issue</b> - Trying to find a solution to this problem...
+                    <td class="mailbox-star"><button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$b->id}}"><i class="fa fa-trash"> </i></button></td>
+                    <td class="mailbox-star"><a data-toggle="modal" data-target="#view{{$b->id}}"><i class="fa fa-eye "></i></a></td>
+                    <td class="mailbox-name">
+                     <?php 
+                     $test = App\BookingStatus::where('contact_id',$b->id)->get()->first();
+                     ?>
+                     @if($test['status']=='approved')
+                     <div class="alert alert-success" style="padding: 2px; width: 70px;" >Approved</div>
+                     @elseif($test['status']=='rejected')
+                     <div class="alert alert-danger" style="padding: 2px; width: 70px;">Rejected</div>
+                     @elseif($test['status']=='')
+                     <div class="alert alert-info" style="padding: 2px; width: 70px;">Pending</div>
+                     
+                     @endif
+                  
+
+                     
+                     
+
+                     
+                        
+
+                    
                     </td>
-                    <td class="mailbox-attachment"><i class="fa fa-paperclip"></i></td>
-                    <td class="mailbox-date">4 days ago</td>
+                    <td class="mailbox-name">{{$b->name}}</td>
+                    <td class="mailbox-subject"><b>{{$b->email}}</b>
+                    <td class="mailbox-subject"> {!!str_limit($b->message,$limit='10')!!} 
+                    </td>
+                    <td class="mailbox-date">
+                      <?php $date = Carbon\Carbon::parse($b->created_at);
+                     $now = Carbon\Carbon::now();
+                      $diff = $date->diffForHumans($now);
+                      ?>
+                      {{$diff}}
+                    </td>
                   </tr>
+                  @endforeach
                   
                   </tbody>
                 </table>
@@ -85,21 +116,10 @@ Bookings
               <!-- /.mail-box-messages -->
             </div>
             <!-- /.box-body -->
-            <div class="box-footer no-padding">
-                <button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button>
-                <div class="pull-right">
-                  1-50/200
-                  <div class="btn-group">
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-left"></i></button>
-                    <button type="button" class="btn btn-default btn-sm"><i class="fa fa-chevron-right"></i></button>
-                  </div>
-                  <!-- /.btn-group -->
-                </div>
-                <!-- /.pull-right -->
-              </div>
+            
             </div>
           </div>
-          <!-- /.          <!-- /.col -->
+          
       </div>
       <!-- /.row -->
     </section>
@@ -116,54 +136,118 @@ Bookings
 
 
 
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+<?php $e = App\Bookings::all();?>
+
+@foreach($e as $t)
+{{-- view --}}
+<div class="modal fade" id="view{{$t->id}}">
+  <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Mail</h5>
+        <h3 class="modal-title" id="view">From :  {{$t->email}} </h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p> Your msg here</p>
+         <p><strong>Name : </strong>{{$t->name}}</p>
+         <p><strong>Gender : </strong>{{$t->gender}}</p>
+         <p><strong>Age : </strong>{{$t->age}}</p>
+         <p><strong>Location : </strong>{{$t->location}}</p>
+         <p><strong>Contact NO : </strong>{{$t->contact}}</p>
+        <p><strong>Message : <br></strong>{!!$t->message!!} </p>
+        <p><strong>Booked For :</strong>{{$t->slug}}
       </div>
+
+    
+
       <div class="modal-footer">
+
+        <a href="{{url('/reply/'.$t->id)}}"><button type="submit" class="btn btn-primary pull-left">Reply</button></a>
+       <div class="col-md-4"></div>
+       
+        <?php $r = App\BookingStatus::where('id',$t->id)->orderBy('id','desc')->get()->first();
         
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal" data-dismiss="modal">Reply</button>
-      </div>
-    </div>
-  </div>
-</div>
-
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form>
-          <div class="form-group">
-            <label for="recipient-name" class="col-form-label">Recipient:</label>
-            <input type="text" class="form-control" id="recipient-name">
-          </div>
-          <div class="form-group">
-            <label for="message-text" class="col-form-label">Message:</label>
-            <textarea class="form-control" id="message-text"></textarea>
-          </div>
+        ?>
+        @if($r=='')
+        <div class="col-md-3">
+        <form action="{{url('bookinga',$t->id)}}" method="post">
+          {{csrf_field()}}
+          <input type="hidden" name="email" value="{{$t->email}}">
+          <input type="hidden" name="status" value="approved">
+          <input type="hidden" name="active" value="replyed">
+        <button type="submit" class="btn btn-success">Approved</button>
         </form>
-      </div>
+        </div>
+       
+        
+
+
+         <div class="col-md-3">
+
+          <form action="{{url('bookingb',$t->id)}}" method="post">
+          {{csrf_field()}}
+          <input type="hidden" name="email" value="{{$t->email}}">
+          <input type="hidden" name="status" value="rejected">
+          <input type="hidden" name="active" value="replyed">
+          <button type="submit" class="btn btn-danger pull-right">Rejected</button>
+          </form>
+          </div>
+
+       @elseif($r['status']=='approved') 
+       <div class="col-md-3">
+        
+      <div class="alert alert-success" style="padding: 2px; width: 70px;" >Approved</div>
+        </div>
+
+        @elseif($r['status']=='rejected')
+        
+
+
+         <div class="col-md-3">
+
+        
+      <div class="alert alert-danger" style="padding: 2px; width: 70px;" >Rejected</div>
+        </div>
+        @endif
+        
+
+
+        
+        </div>
+
+      
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Send message</button>
+         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>
 </div>
 
+
+
+
+<div class="modal modal-danger fade" id="modal-danger{{$t->id}}">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Message from web</h4>
+              </div>
+              <div class="modal-body">
+                <p>Are you sure you want to delete ?&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
+              <a href="{{url('/deletebook/'.$t->id)}}"> <button type="submit" class="btn btn-outline">Yes</button></a>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+
+@endforeach
 
 @endsection

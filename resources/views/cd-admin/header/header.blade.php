@@ -20,7 +20,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{url('public/cd-admin/images/avatar.png')}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">name</span>
+                        <span class="hidden-xs">{{auth::user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -29,7 +29,7 @@
 
                             <p>
                            
-                                name
+                                {{auth::user()->name}}
                                 <small>role</small>
                             </p>
                         </li>
@@ -39,7 +39,7 @@
                                 <a href="#" class="btn btn-info btn-flat">Profile</a>
                             </div> --}}
                             <div class="pull-right">
-                                <a href="{{url('adminlogout')}}" class="btn btn-danger btn-flat">Sign out</a>
+                                <a href="{{route('logout')}}" class="btn btn-danger btn-flat">Sign out</a>
                             </div>
                         </li>
                     </ul>
@@ -163,11 +163,17 @@
             <li class="header">Booking</li>
             
             <li class="treeview">
-                <a href="{{url('/bookings')}}">
-                    <i class="fa fa-suitcase"></i> <span>Bookings</span>
-                    
+                <a href="#">
+                     <i class="fa fa-suitcase"></i> <span>Bookings</span>
+                      <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
                 </a>
-                            </li>
+                 <ul class="treeview-menu">
+                 <li class="active"><a href="{{url('/bookings')}}"><i class="fa fa-circle-o"></i>View Bookings</a></li>
+                <li class="active"><a href="{{url('/reply')}}"><i class="fa fa-circle-o"></i>View Replies</a></li>
+                </ul>
+                </li>
 
              <li class="header">Gallery</li>
             
@@ -204,14 +210,20 @@
                 </ul>
                 </li>
 
-           <li class="header">Contact</li>
-            
-                <li class="treeview">
-                <a href="{{url('/contact')}}">
-                    <i class="fa fa-phone"></i> <span>Contact</span>
-                    
-                </a>
-                </li>
+           <li class="header">Message</li>
+           <li class="treeview">
+            <a href="#">
+            <i class="fa fa-envelope"></i><span>Message</span>
+            <span class="pull-right-container">
+                <i class="fa fa-angle-left pull-right"></i>
+            </span>
+            </a>
+                <ul class="treeview-menu">
+                <li class="active"><a href="{{url('/contact')}}"><i class="fa fa-circle-o"></i>View Inbox</a></li>
+                 <li class="active"><a href="{{url('/replies')}}"><i class="fa fa-circle-o"></i>View Reply</a></li>
+                </ul>
+        </li>
+
 
 
                  <li class="header">SEO</li>
@@ -224,9 +236,9 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="{{url('/aseo')}}"><i class="fa fa-circle-o"></i>SEO About</a></li>
+                    <li class="active"><a href="{{url('/addseo')}}"><i class="fa fa-circle-o"></i>Add Seo </a></li>
                     
-                    <li><a href="{{url('/sseo')}}"><i class="fa fa-circle-o"></i>SEO Services</a></li>
+                    <li><a href="{{url('/viewseo')}}"><i class="fa fa-circle-o"></i>View Seo</a></li>
                 </ul>
                 </li>
 

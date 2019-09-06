@@ -47,24 +47,50 @@ Add Gallery
                   </div>
 
                   <div class="form-group">
-
+                     <label for="name">Status</label>
+                          <div class="text text-danger">{{$errors->first('status')}}</div>
               <label>
-                <input type="radio" name="status" value="active" <?php echo old('status')=='active' ? 'checked' : ' '  ?> >
+                <input type="radio" class="minimal" name="status" value="active" <?php echo old('status')=='active' ? 'checked' : ' '  ?> >
                 Active
               </label>
               <label>
-                <input type="radio" name="status" value="inactive" <?php echo old('status')=='inactive' ? 'checked' : ' '  ?>>
+                <input type="radio" class="minimal" name="status" value="inactive" <?php echo old('status')=='inactive' ? 'checked' : ' '  ?>>
                 Inactive
               </label>
             </div>
+
+                  <div class="form-group">
+                  <label for="name">SEO Title</label>
+                   <div class="text text-danger">{{$errors->first('title')}}</div>
+                  <input type="text" name="title" value="{{old('title')}}" class="form-control" placeholder="Enter SEOTitle">
+                </div>
+
+
+                <div class="form-group">
+                  <label for="name">SEO Keywords</label>
+                   <div class="text text-danger">{{$errors->first('keywords')}}</div>
+                  <input type="text" name="keywords" value="{{old('keywords')}}" class="form-control" placeholder="Enter SEO Keywords">
+                </div>
+                
+                <div class="form-group">
+                  
+                    <label for="altimage">SEO Description</label>
+                    <div class="text text-danger">{{$errors->first('sdes')}}</div>
+                    <input type="text" name="sdes" value="{{old('sdes')}}" class="form-control" placeholder="Enter SEO Description">
+                  </div>
+
+
+
                 <div class="box-footer">
                   <button type="submit" class="btn btn-primary">Add Gallery</button>
                 </div>
               </div>  
             </form>
-            <div class="box-footer">
+            <div class="col-md-4"></div>  
+            <div class="box-title">
               <a href="{{ URL()->previous() }}"><button class="btn btn-danger" style="margin-left: 10px;">Cancel</button></a>
             </div>
+            <div class="col-md-4"></div>
           </div>
         </div>
       </div>

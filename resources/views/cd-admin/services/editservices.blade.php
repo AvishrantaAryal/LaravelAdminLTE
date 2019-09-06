@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Edit Services
 @endsection
 
 @section('content')
@@ -13,13 +13,7 @@ Home
     <h1>
   Edit Services
   </h1>   
-<!--   <div class="btn-danger"> 
-  @if($errors->any())
-    @foreach($errors->all() as $e)
-      <li>{{$e}}</li>
-    @endforeach
-@endif
-</div> -->
+
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Services</a></li>

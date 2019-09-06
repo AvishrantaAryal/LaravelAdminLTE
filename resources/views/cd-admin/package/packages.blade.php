@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+View Packages
 @endsection
 
 @section('content')
@@ -147,13 +147,13 @@ Home
       </div>
       <div class="modal-body">
 
-        <p> @if($t->status=='active')
+        @if($t->status=='active')
         <div class="btn btn-success">Available</div>
 
         @else
         <div class="btn btn-danger">Not Available</div>
-        @endif</p> 
-         <p><strong><h3>Details :</h3></strong> {!!$t->package!!}    </p>
+        @endif
+        <strong><h3 >Details :</h3></strong><p> {!!$t->package!!}</p> 
         <p> <img src="{{url('/imageupload/'.$t->image)}}" style="height: 500px; width:500px;"></p>
 
         
@@ -252,8 +252,11 @@ Home
 
 
 
-
-
+<style type="text/css">
+  .p{
+    width: 100px;
+  }
+</style>
 
  
 @endforeach

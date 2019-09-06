@@ -40,13 +40,13 @@ About Form
                   <div class="form-group">
                     <label for="name">Name</label>
                     <div class="text text-danger">{{$errors->first('name')}}</div>
-                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name">
+                    <input type="text" class="form-control" name="name" id="name" placeholder="Enter Name" value="{{old('name')}}">
                     
                   </div>
                   <div class="form-group">
                     <label for="name">Tagline</label>
                     <div class="text text-danger">{{$errors->first('tagline')}}</div>
-                    <input type="text" class="form-control" name="tagline" id="name"  placeholder="Enter Tagline for name">
+                    <input type="text" class="form-control" name="tagline" id="name"  placeholder="Enter Tagline for name" value="{{old('tagline')}}">
                     
                   </div>
                   
@@ -58,9 +58,9 @@ About Form
                   </div>
 
                   <div class="form-group">
-                     <label for="altimage">Alt Image</label>
+                     <label for="altimage">Alternative Image Text</label>
                      <div class="text text-danger">{{$errors->first('altimage')}}</div>
-                    <input type="text" class="form-control" name="altimage" id="altimage" placeholder="Enter image name">
+                    <input type="text" class="form-control" name="altimage" value="{{old('altimage')}}" id="altimage" placeholder="Enter image alternative text">
                     
                   </div>
                   <div class="form-group">
@@ -78,7 +78,7 @@ About Form
                   <div class="form-group">
                     <label for="video">Video link</label>
                     <div class="text text-danger">{{$errors->first('video')}}</div>
-                    <input type="text" class="form-control" name="video" id="video">
+                    <input type="url" class="form-control" name="video" id="video" value="{{old('video')}}">
                   </div>
 
                 </div>

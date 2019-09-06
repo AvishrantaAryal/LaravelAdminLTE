@@ -19,6 +19,10 @@ class CreateGalleriesTable extends Migration
             $table->string('image');
             $table->string('altimage');
             $table->string('status');
+            $table->string('title');
+            $table->string('keywords');
+            $table->string('sdes');
+
             $table->timestamps();
         });
     }

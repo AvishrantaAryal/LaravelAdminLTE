@@ -30,8 +30,10 @@ class GalleryController extends Controller
 
      public function image($album_id)
      {
+
+        $ga=DB::table('galleries')->get();
          $im=DB::table('images')->where('gallery_id',$album_id)->get();
- 	return view('cd-admin.gallery.imageview',compact('im','album_id'));
+ 	return view('cd-admin.gallery.imageview',compact('im','album_id','ga'));
 
 	 }
 

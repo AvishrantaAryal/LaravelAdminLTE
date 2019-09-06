@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Image View
 @endsection
 
 @section('content')
@@ -11,7 +11,9 @@ Home
 
 	 <section class="content-header">
   <h1 style="padding-left: 10px;">
-   Images
+   @foreach($ga as $a)
+   {{$a->name}}
+   @endforeach
     
   </h1>
   
@@ -45,6 +47,7 @@ Home
        @endif
 
         @foreach($im as $g)
+
 		<div class="container">
        <div style="height: 85px;">
         <form action="{{url('/isupdate/'.$g->id)}}" method="POST">

@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Admin
 @endsection
 
 @section('content')
@@ -31,31 +31,30 @@ Home
               <table id="example1" class="table table-bordered table-striped">
                 <thead>
                 <tr>
-                  <th>ID</th>
-                  <th>Image</th>
+                  <th>S.N</th>
                   <th>Name</th>
+                  <th>E-mail</th>
                   <th>Action</th>
                   
                 </tr>
                 </thead>
                 <tbody>
+                  @foreach($admin as $a)
                 <tr>
-                  <td>Trident</td>
-                  <td>Internet
-                    Explorer 4.0
-                  </td>
-                  <td>Win 95+</td>
+                  <td>{{$loop->iteration}} </td>
+                  <td>{{$a->name}}</td>
+                  <td>{{$a->email}}</td>
                   <td>
                     
                    <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong"><i class="fa  fa-eye"> </i></button></td>
                   </tr>
-                
+                @endforeach
                 </tbody>
                 <tfoot>
                 <tr>
-                  <th>ID</th>
-                  <th>Image</th>
+                  <th>S.N</th>
                   <th>Name</th>
+                  <th>E-mail</th>
                   <th>Action</th>
                   
                 </tr>
@@ -77,6 +76,8 @@ Home
         
 
         <!--MODEL-->
+        <?php $r = App\User::all();?>
+        @foreach($r as $ad)
 <div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -87,7 +88,8 @@ Home
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <p>Name : {{$ad->name}}</p>
+        <p>Email:{{$ad->email}}
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -193,4 +195,5 @@ Home
     </div>
   </div>
 </div>
+@endforeach
 @endsection

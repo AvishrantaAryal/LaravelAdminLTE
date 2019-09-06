@@ -26,14 +26,14 @@ Home
 				<div class="small-box bg-aqua">
 					<div class="inner">
 					
-						<h3>20</h3>
+						<h3>1</h3> 
 
 						<p>Bookings</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-copy"></i>
 					</div>
-					{{-- <a href="{{url('view-all-user')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> --}}
+					<a href="{{url('/bookings')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
 			</div>
 			<!-- ./col -->
@@ -41,49 +41,53 @@ Home
 				<!-- small box -->
 				<div class="small-box bg-green">
 					<div class="inner">
-					
-						<h3>10</h3>
+					<h3>0</h3>
 
-						<p>Available Rooms</p>
+
+						<p>Accepted Bookings</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-calendar"></i>
 					</div>
-					{{-- <a href="{{url('view-all-user')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> --}}
+					<a href="{{url('/bookings')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
 			</div>
 			<!-- ./col -->
-			<div class="col-lg-3 col-xs-6">
-				<!-- small box -->
-				<div class="small-box bg-yellow">
-					<div class="inner">
-					
-						<h3>4</h3>
 
-						<p>Packages</p>
-					</div>
-					<div class="icon">
-						<i class="fa fa-copy"></i>
-					</div>
-					{{-- <a href="view-all-travel" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> --}}
-				</div>
-			</div>
-			<!-- ./col -->
 			<div class="col-lg-3 col-xs-6">
 				<!-- small box -->
 				<div class="small-box bg-red">
 					<div class="inner">
 					
-						<h3>1 million +</h3>
-
-						<p>Customers</p>
+						
+						<h3>1</h3>
+						<p>Rejected Bookings</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-calendar"></i>
 					</div>
-					{{-- <a href="view-all-vehicle" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> --}}
+					<a href="{{url('/bookings')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
 			</div>
+
+
+			<div class="col-lg-3 col-xs-6">
+				<!-- small box -->
+				<div class="small-box bg-yellow">
+					<div class="inner">
+					
+						<h3>{{$pak}}</h3>
+
+						<p>Packages</p>
+					</div>
+					<div class="icon">
+						<i class="fa fa-box-full"></i>
+					</div>
+					<a href="{{url('/allpackages')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
+				</div>
+			</div>
+			<!-- ./col -->
+			
 			<!-- ./col -->
 		</div>
 		<!-- /.row -->
@@ -164,32 +168,29 @@ Home
 					@if(Session::has('success'))
 					<div class="alert alert-success">
 						<button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						<strong> SEND SUCCESSFULLY!!!</strong> {{ Session::get('message', '') }}
+						<strong> MESSAGE SEND SUCCESSFULLY!!!</strong> {{ Session::get('message', '') }}
 					</div>
 					@endif
 					<div class="box-header">
 						<i class="fa fa-envelope"></i>
 
 						<h3 class="box-title">Quick Email</h3>
-						<!-- tools box -->
-						<div class="pull-right box-tools">
-							<button type="button" class="btn btn-info btn-sm" data-widget="remove" data-toggle="tooltip" title="Remove">
-								<i class="fa fa-times"></i>
-							</button>
-						</div>
-						<!-- /. tools -->
+						
 					</div>
 					<div class="box-body">
-						<form action="{{url('quickmessage')}}" method="post">
+						<form action="{{url('quickmail')}}" method="post">
 							{{csrf_field()}}
 							<div class="form-group">
-								<input type="email" class="form-control" name="email" placeholder="Email to:" required="">
+								 <div class="text text-danger">{{$errors->first('email')}}</div>
+								<input type="email" class="form-control" name="email" placeholder="Email to:" >
 							</div>
 							<div class="form-group">
-								<input type="text" class="form-control" name="subject" placeholder="Subject" required="">
+								 <div class="text text-danger">{{$errors->first('subject')}}</div>
+								<input type="text" class="form-control" name="subject" placeholder="Subject" >
 							</div>
-							<div>
-								<textarea class="textarea" name="message" required="message" placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+							<div class="form-group">
+								 <div class="text text-danger">{{$errors->first('message')}}</div>
+								<textarea class="textarea" name="message"  placeholder="Message" style="width: 100%; height: 125px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
 							</div>
 					
 					</div>
@@ -291,7 +292,7 @@ Home
 				<div class="box box-info">
 					<div class="box-header with-border">
 						<h3 class="box-title">Quick mail </h3>
-
+						  
 						<div class="box-tools pull-right">
 							<button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse"><i class="fa fa-minus"></i>
 							</button>
@@ -302,20 +303,20 @@ Home
 					
 					
 					<div class="box-body">
-						<ul class="products-list product-list-in-box">
-							<li class="item">
-								<div class="product-info" style="margin-left: 10px;">
-									<a href="javascript:void(0)" class="product-title">test
-									</a>
-									<span class="product-description">
-										<span>test</span>
-									</span>
+						
+						<table class="table table-hover table-striped">
 
-								</div>
-							</li>
-							
-							
-						</ul>
+						@foreach($test as $t)
+						<tr>
+							<td class="mailbox-name">{{$t->email}}</td>
+							<td class="mailbox-subject">{{$t->subject}}</td>
+							<td class="mailbox-subject">{!!str_limit($t->message,$limit='20')!!}</td>
+					</tr>
+						@endforeach
+					</table>
+					</div>
+					<div class="box-footer text-center">
+						<a href="{{url('view-all-mails')}}" class="uppercase">View All Mails</a>
 					</div>
 					
 				

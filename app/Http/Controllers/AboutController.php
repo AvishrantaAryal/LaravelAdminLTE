@@ -76,7 +76,7 @@ class AboutController extends Controller
             'tagline' => 'required',
             'altimage' => 'required',
             'description' => 'required',
-            'video' => 'required',
+            'video' => 'required|url',
             'image' => 'required|mimes:jpeg,png,jpg,JPEG,JPG,PNG',
             'pdf' => 'required|mimes:pdf',
         ]);
@@ -88,7 +88,7 @@ class AboutController extends Controller
             'tagline' => 'required|max:255',
             'altimage' => 'required|max:255',
             'description' => 'required',
-            'video' => 'required',
+            'video' => 'required|url',
         ]);
     }
 }

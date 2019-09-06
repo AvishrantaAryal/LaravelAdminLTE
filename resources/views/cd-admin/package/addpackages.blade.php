@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+Add Packages
 @endsection
 
 @section('content')
@@ -40,7 +40,7 @@ Home
                 <div class="form-group">
                   <label for="name">Package Name</label>
                   <div class="text text-danger">{{$errors->first('name')}}</div>
-                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter package Name">
+                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter package Name" value="{{old('name')}}">
                 
                 </div>
                 <div class="form-group">
@@ -58,7 +58,7 @@ Home
               <div class="form-group">
                   <label for="imgalt">Image Alt</label>
                   <div class="text text-danger">{{$errors->first('imagealt')}}</div>
-                  <input type="text" class="form-control" name="imagealt" id="imagealt">
+                  <input type="text" class="form-control" name="imagealt" id="imagealt" value="{{old('imagealt')}}" >
               </div>
 
              
@@ -84,9 +84,11 @@ Home
 
     
             </form>
-            <div class="box-footer" style="margin-left: 10px;">
+            <div class="col-md-4"></div>
+            <div class="box-body" style="margin-left: 10px;">
     <a href="{{URL()->previous()}}"><button type="submit" class="btn btn-danger">Cancel</button></a>
           </div>
+          <div class="col-md-4"></div>
           </div>
           <!-- /.box -->
       </div>

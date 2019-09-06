@@ -92,8 +92,8 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote-bs4.css" rel="stylesheet">
 
  </head>
- <body class="sidebar-mini wysihtml5-supported skin-purple">
-
+ <!-- <body class="sidebar-mini wysihtml5-supported skin-purple"> -->
+<body class="sidebar-mini wysihtml5-supported skin-green">
   <div class="wrapper">
 
     @include('cd-admin.header.header')

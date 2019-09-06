@@ -18,6 +18,7 @@ class Packages extends Model
 		$a=[];
 		$test = $this->insertimage($data['image']);
 		$a['image'] = $test;
+        $a['slug'] = str_slug($data['name']);
         $a['created_at'] =Carbon::now('Asia/Kathmandu');
         $replace = array_replace($data,$a);
         DB::table('packages')->Insert($replace);
@@ -65,9 +66,9 @@ class Packages extends Model
 	{
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'package' => 'required',
-    	'image' => 'required|image',
+    	'image' => 'required|image|max:2048',
     	'imagealt' => 'required',
     	'status' => 'required',
 		]);
@@ -76,7 +77,7 @@ class Packages extends Model
 	public function updatevalidation()
 	{
 		 $data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'package' => 'required',
     	'imagealt' => 'required',
     	'status' => 'required',

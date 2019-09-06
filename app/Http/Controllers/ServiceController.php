@@ -31,7 +31,6 @@ class ServiceController extends Controller
     $a['image'] = $img;
     $a['created_at']=Carbon::now('Asia/Kathmandu');
     $final = array_merge($data,$a);
-
     DB::table('services')->Insert($final);
     Session::flash('success');
     return redirect('/allservices');
@@ -112,7 +111,7 @@ public function validationform()
         'service'=>'required',
         'imagealt'=>'required',
         'status'=>'required',
-        'image'=>'required|image',
+        'image'=>'required|image|max:2048',
 
 
     ]);

@@ -11,11 +11,40 @@
 |
 */
 
-Route::get('/', function () {
-    return view('cd-admin.home.home');
-});
+// Route::get('/', function () {
+// 	// $book = App\BookingReply::all();
+// 	// foreach($book as $b)
+// 	// {
+// 	// 	$check = App\Bookings::where('id','!=',$b['contact_id'])->get();
+// 	// 	dd(count($check));
+// 	// }
 
+// 	$book = DB::table('booking_replies')
+// 			->join('bookings','booking_replies.contact_id','!=', 'bookings.id' )
+// 			->get();
+// 	$count = count($book);
+//     return view('cd-admin.home.home',compact('count'));
+// });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['middleware' => 'auth'], function () {
+    //
+
+Route::get('/logout','HomeController@logout')->name('logout');
+
+
+Route::get('/','DashboardController@dashboard');
+Route::post('/quickmail','DashboardController@mail');
+Route::get('view-all-mails','DashboardController@view');
+Route::get('/deletemail/{id}','DashboardController@del');
+	
+
+	//ADMIN
 Route::get('/view-all-admin','AdminController@adminshow');
+Route::get('/addadmin','AdminController@add');
 
 
 //ABout
@@ -92,30 +121,43 @@ Route::Post('/isupdate/{id}','GalleryController@isupdate');
 //Contact
 
 Route::get('/contact','ContactController@contact');
-Route::get('/replycontact','ContactController@replyform');
-ROute::get('/storeontact','ContactController@store');
-
-
-
-
-Route::get('/bookings','AdminController@booking');
-
-
-
-
-
-
-Route::get('/aseo','AdminController@aseo');
-
-Route::post('/store','AboutController@store')->name('store');
+Route::get('/replies','ContactController@reply');
+Route::get('/replycontact/{id}','ContactController@replyform');
+Route::get('/createcontact','ContactController@create');
+ROute::post('/storecontact','ContactController@store');
+Route::post('/storereply/{id}','ContactController@storereply');
+Route::get('/deleteinbox/{id}','ContactController@deleteinbox');
+Route::get('/deletereply/{id}','ContactController@deletereply');
 
 
 
 
 
+//SEO
+Route::get('/addseo','SEOController@add');
+Route::get('/viewseo','SEOController@view');
+Route::post('/seostore','SEOController@store');
+Route::get('/editseo/{id}','SEOController@edit');
+Route::post('/updateseo/{id}','SEOController@updateseo');
+Route::get('/deleteseo/{id}','SEOController@delete');
 
 
 
-Route::post('/storecarousel','CarouselController@store');
+
+//BOOKINGS
+Route::get('/bookings','BookingController@booking');
+Route::get('/bookingscreate/{slug}','BookingController@create');
+Route::post('/bookingsstore','BookingController@book');
+Route::get('/deletebook/{id}','BookingController@deleteinbox');
+Route::get('/reply/{id}','BookingController@replyform');
+Route::post('/bookingreply/{id}','BookingController@storereply');
+Route::get('/reply','BookingController@reply');
+Route::get('/deletebookingreply/{id}','BookingController@deletereply');
+Route::post('/bookinga/{id}','BookingController@astore');
+Route::post('/bookingb/{id}','BookingController@rstore');
+
+
+
+});
 
 

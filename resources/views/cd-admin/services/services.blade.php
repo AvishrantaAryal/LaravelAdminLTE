@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+View Services
 @endsection
 
 @section('content')
@@ -133,6 +133,14 @@ Home
         
 
         <!--MODEL-->
+
+
+ <style type="text/css">
+
+  p.img{
+    width: 100px;
+  }
+</style>
 <?php $er = App\Service::all();
 ?>
 @foreach($er as $ser)
@@ -145,14 +153,14 @@ Home
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body creatuimg">
         <p> @if($ser->status=='active')
         <div class="btn btn-success">Available</div>
         @else
         <div class="btn btn-danger">Not Available</div>
         @endif
-      </p> 
-         <p><h3><strong> Details:</strong></h3>{!!$ser['service']!!}    </p>
+        </p> 
+         <h3><strong> Details:</strong></h3><p>{!!$ser['service']!!}  </p>
 
         <p><h3><strong> Image :</strong></h3>
         <center> <img src="{{url('/imageupload/'.$ser->image)}}" style="height:250px;"></p>

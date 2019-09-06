@@ -36,13 +36,13 @@ Reply
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form method="post" action="" enctype="multipart/form-data" >
+            <form method="post" action="{{url('storereply',$n->id)}}" enctype="multipart/form-data" >
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
-                  <label for="name">Receiver Name</label>
-                  <div class="text text-danger">{{$errors->first('name')}}</div>
-                  <input type="text" class="form-control" name="name"  id="name" placeholder="Enter Receiver`s Address">
+                  <label for="name">Receiver`s Email </label>
+                  <div class="text text-danger">{{$errors->first('email')}}</div>
+                  <input type="text" class="form-control" name="email"  value="{{$n->email}}">
                 
                 </div>
 
@@ -59,6 +59,20 @@ Reply
                     
                   </textarea>
                 </div>
+                <div class="form-group">
+                <div class="text text-danger">{{$errors->first('active')}}</div>
+                <label for="status">Status</label>
+                  <div class="radio">
+                    <label>
+                      
+                      <input type="radio" class="minimal" name="status"  value="active" checked >Replyed<br>
+                      
+
+                    </label>
+                  </div>
+                 
+
+              </div>
                 
              
 

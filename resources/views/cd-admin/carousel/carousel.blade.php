@@ -1,7 +1,7 @@
 @extends('cd-admin.home-master')
 
 @section('page-title')  
-Home
+View Carousel
 @endsection
 
 @section('content')
@@ -172,7 +172,7 @@ cursor:pointer;
       </p>
       <p><center> <img src="{{url('/imageupload/'.$ser->image)}}" style="height:250px;"></p>
           </center></p>
-      <p><strong>Description : </strong>{{$ser->description}}
+      <p><strong>Description : </strong>{!!$ser->description!!}
 
       </div>
       <div class="modal-footer">
