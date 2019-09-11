@@ -20,7 +20,7 @@
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         <img src="{{url('public/cd-admin/images/avatar.png')}}" class="user-image" alt="User Image">
-                        <span class="hidden-xs">{{auth::user()->name}}</span>
+                        <span class="hidden-xs">{{Auth::user()->name}}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <!-- User image -->
@@ -29,15 +29,14 @@
 
                             <p>
                            
-                                {{auth::user()->name}}
-                                <small>role</small>
+                                {!! Auth::user()->name !!}
+                                
+                                <small>{{Auth::user()->role}}</small>
                             </p>
                         </li>
                         <!-- Menu Footer-->
                         <li class="user-footer">
-                            {{-- <div class="pull-left">
-                                <a href="#" class="btn btn-info btn-flat">Profile</a>
-                            </div> --}}
+                            
                             <div class="pull-right">
                                 <a href="{{route('logout')}}" class="btn btn-danger btn-flat">Sign out</a>
                             </div>
@@ -80,7 +79,7 @@
         <!-- sidebar menu: : style can be found in sidebar.less -->
         <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li><a href="{{url('/')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
+            <li><a href="{{url('/dashboard')}}"><i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-user"></i> <span>Admin</span>
@@ -89,11 +88,30 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    {{-- <li class="active"><a href="{{url('/add-new-admin')}}"><i class="fa fa-circle-o"></i>Add New Admin</a></li> --}}
+                   
+                    @if(auth::user()->role == 'superadmin')
+                    <li class="active"><a href="{{url('/addadmin')}}"><i class="fa fa-circle-o"></i>Add New Admin</a></li>
+                    @endif
                     <li><a href="{{url('/view-all-admin')}}"><i class="fa fa-circle-o"></i>View All Admin</a></li>
                 </ul>
             </li>
-
+            <li class="header">Introduction</li>
+            
+            <li class="treeview">
+                <a href="#">
+                   <i class="fa fa-home"></i> <span>Introduction</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    
+                   
+                  <!--  <li><a href="{{url('/addintroduction')}}"><i class="fa fa-circle-o"></i>Add Introduction</a></li> -->
+                     <li><a href="{{url('/introshow')}}"><i class="fa fa-circle-o"></i>Show Introduction</a></li>
+                   
+                </ul>
+            </li>
             <li class="header">Carousel</li>
             
             <li class="treeview">
@@ -123,7 +141,7 @@
                     
                    
                    <!--  <li><a href="{{url('/about')}}"><i class="fa fa-circle-o"></i>Add About</a></li> -->
-                     <li><a href="{{url('/aboutshow')}}"><i class="fa fa-circle-o"></i>Show About</a></li>
+                     <li><a href="{{url('/aboutdetail')}}"><i class="fa fa-circle-o"></i>Show About</a></li>
                    
                 </ul>
             </li>
@@ -135,6 +153,7 @@
                     <i class="fa fa-gears"></i> <span>Services</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
+                         <span class="badge badge-info right">{{$serv}}</span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -150,8 +169,10 @@
                 <a href="#">
                     <i class="fa fa-info"></i> <span>Packages</span>
                     <span class="pull-right-container">
+                         <span class="badge badge-info right">{{$pack}}</span>
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
+
                 </a>
                 <ul class="treeview-menu">
                     <li class="active"><a href="{{url('/allpackages')}}"><i class="fa fa-circle-o"></i>View All Packagess</a></li>
@@ -166,7 +187,9 @@
                 <a href="#">
                      <i class="fa fa-suitcase"></i> <span>Bookings</span>
                       <span class="pull-right-container">
+                         <span class="badge badge-info right">{{$pack}}</span>
                         <i class="fa fa-angle-left pull-right"></i>
+
                     </span>
                 </a>
                  <ul class="treeview-menu">
@@ -185,7 +208,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="{{url('/gallery')}}"><i class="fa fa-circle-o"></i>View Album</a></li>
+                    <li class="active"><a href="{{url('/viewgallery')}}"><i class="fa fa-circle-o"></i>View Album</a></li>
                     <!-- <li class="active"><a href="{{url('/igallery')}}"><i class="fa fa-circle-o"></i>View Image</a></li> -->
                     
                     <li><a href="{{url('/addgallery')}}"><i class="fa fa-circle-o"></i>Add Album</a></li>
@@ -201,6 +224,7 @@
                     <i class="fa fa-star"></i> <span>Review</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
+                         <span class="badge badge-info right">{{$serv}}</span>
                     </span>
                 </a>
                 <ul class="treeview-menu">
@@ -219,7 +243,7 @@
             </span>
             </a>
                 <ul class="treeview-menu">
-                <li class="active"><a href="{{url('/contact')}}"><i class="fa fa-circle-o"></i>View Inbox</a></li>
+                <li class="active"><a href="{{url('/viewcontact')}}"><i class="fa fa-circle-o"></i>View Inbox</a></li>
                  <li class="active"><a href="{{url('/replies')}}"><i class="fa fa-circle-o"></i>View Reply</a></li>
                 </ul>
         </li>
@@ -236,7 +260,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li class="active"><a href="{{url('/addseo')}}"><i class="fa fa-circle-o"></i>Add Seo </a></li>
+                    <!-- <li class="active"><a href="{{url('/addseo')}}"><i class="fa fa-circle-o"></i>Add Seo </a></li> -->
                     
                     <li><a href="{{url('/viewseo')}}"><i class="fa fa-circle-o"></i>View Seo</a></li>
                 </ul>

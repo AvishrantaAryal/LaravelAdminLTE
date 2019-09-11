@@ -26,9 +26,9 @@ Home
 				<div class="small-box bg-aqua">
 					<div class="inner">
 					
-						<h3>1</h3> 
+						<h3>{{$booking}}</h3> 
 
-						<p>Bookings</p>
+						<p>Bookings Pending</p>
 					</div>
 					<div class="icon">
 						<i class="fa fa-copy"></i>
@@ -41,13 +41,13 @@ Home
 				<!-- small box -->
 				<div class="small-box bg-green">
 					<div class="inner">
-					<h3>0</h3>
+					<h3>{{$accepted}}</h3>
 
 
 						<p>Accepted Bookings</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-calendar"></i>
+						<i class="fa fa-check"></i>
 					</div>
 					<a href="{{url('/bookings')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
@@ -60,11 +60,11 @@ Home
 					<div class="inner">
 					
 						
-						<h3>1</h3>
+						<h3>{{$rejected}}</h3>
 						<p>Rejected Bookings</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-calendar"></i>
+						<i class="fa fa-times"></i>
 					</div>
 					<a href="{{url('/bookings')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
@@ -81,7 +81,7 @@ Home
 						<p>Packages</p>
 					</div>
 					<div class="icon">
-						<i class="fa fa-box-full"></i>
+						<i class="fa fa-pie-chart"></i>
 					</div>
 					<a href="{{url('/allpackages')}}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a> 
 				</div>
@@ -269,11 +269,12 @@ Home
 						<ul class="products-list product-list-in-box">
 							<li class="item">
 								<div class="product-info" style="margin-left: 10px;">
-									<a href="javascript:void(0)" class="product-title">name
+									<a href="javascript:void(0)" class="product-title">{{$admin->name}}
 										<span class="label label-success pull-right">Active</span>
+									
 									</a>
 									<span class="product-description">
-										role
+										{{$admin->role}}
 									</span>
 
 								</div>

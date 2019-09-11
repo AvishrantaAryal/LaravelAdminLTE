@@ -25,6 +25,8 @@ class Gallery extends Model
 	}
 
 	public function remove($id){
+     DB::beginTransaction();
+        try{
 		$ga = DB::table('galleries')->where('id',$id)->get()->first();
         if(file_exists('imageupload/'.$ga->image)) 
     	{
@@ -38,9 +40,15 @@ class Gallery extends Model
         unlink('imageupload/'.$i->image);
          $img =DB::table('images')->where('gallery_id',$id)->delete();
         }
-      }
+        }
    		 	DB::table('galleries')->where('id',$id)->delete();
+        DB::commit();
 		Session::flash('deletesuccess');
+    }
+      catch(\Exception $e){
+            DB::rollback();
+
+        }
 	}
 
 
@@ -50,7 +58,7 @@ class Gallery extends Model
 	{
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'image' => 'required|image',
     	'altimage' => 'required',
     	'status'=>'required',

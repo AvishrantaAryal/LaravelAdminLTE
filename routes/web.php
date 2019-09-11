@@ -26,17 +26,111 @@
 //     return view('cd-admin.home.home',compact('count'));
 // });
 
+
+
+
+Route::get('/','FrontendController@home');
+Route::get('know-about-phool-maya','FrontendController@about');
+
+
+Route::get('ourservice','FrontendController@service'); 
+
+Route::get('package','FrontendController@package');
+
+Route::get('contact','FrontendController@contact');
+
+Route::get('gallery','FrontendController@gallery');
+
+Route::get('booking/{slug}','FrontendController@booking');
+
+Route::get('album/{id}','FrontendController@album')->name('album1');
+
+
+
+
+
+Route::get('room', function () {
+    return view('frontend.room.room');
+});
+
+
+
+
+
+
+
+Route::get('album2', function () {
+    return view('gallery.album2');
+});
+
+
+Route::get('album3', function () {
+    return view('frontend.gallery.album3');
+});
+
+
+Route::get('album4', function () {
+    return view('frontend.gallery.album4');
+});
+
+Route::get('whyus', function () {
+    return view('frontend.whyus.whyus');
+});
+
+Route::get('guestreviews','FrontendController@review');
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['middleware' => 'auth'], function () {
+
+	View::composer('cd-admin.header.header', function ($view) {
+		$serv = DB::table('services')->count();
+		$rev = DB::table('reviews')->count();
+    	$pack = DB::table('packages')->count();
+    	$acept=DB::table('booking_statuses')->where('status','approved')->get();
+        $accepted=count($acept);
+        $reject=DB::table('booking_statuses')->where('status','rejected')->get();
+        $rejected=count($reject);
+        $book = DB::table('bookings')->get();
+        $b=count($book);
+        $booking=$b-$accepted-$rejected;
+    	
+
+
+      $view->with(['serv'=>$serv,'pack'=>$pack,'booking'=>$booking,'rev'=>$rev] );
+});
     //
 
 Route::get('/logout','HomeController@logout')->name('logout');
 
 
-Route::get('/','DashboardController@dashboard');
+Route::get('dashboard','DashboardController@dashboard');
 Route::post('/quickmail','DashboardController@mail');
 Route::get('view-all-mails','DashboardController@view');
 Route::get('/deletemail/{id}','DashboardController@del');
@@ -45,14 +139,22 @@ Route::get('/deletemail/{id}','DashboardController@del');
 	//ADMIN
 Route::get('/view-all-admin','AdminController@adminshow');
 Route::get('/addadmin','AdminController@add');
-
+Route::post('/storeadmin','AdminController@storeadmin');
+Route::get('/deleteadmin/{id}','AdminController@delete');
 
 //ABout
 Route::get('/about','AboutController@about');
-Route::get('/aboutshow','AboutController@aboutshow');
-Route::get('/aboutdetail/{id}','AboutController@aboutdetail');
+Route::get('/aboutdetail','AboutController@aboutdetail');
 Route::post('/aboutstore','AboutController@aboutstore');
-Route::post('/aboutupdate/{id}','AboutController@aboutupdate');
+Route::post('/aboutupdate','AboutController@aboutupdate');
+
+
+//Introduction
+Route::get('/addintroduction','IntroductionController@add');
+Route::post('/introstore','IntroductionController@store');
+Route::get('/introshow','IntroductionController@show');
+Route::post('/introupdate','IntroductionController@edit');
+
 
 
 //CAROUSEL
@@ -103,7 +205,7 @@ Route::post('/statusupdate/{id}','ReviewController@status');
 //Gallery
 
 Route::get('/addgallery','GalleryController@create');
-Route::get('/gallery','GalleryController@viewalbum');
+Route::get('/viewgallery','GalleryController@viewalbum');
 Route::get('/igallery/{id}','GalleryController@image');
 Route::get('/addimage/{id}','GalleryController@addimage');
 Route::post('/gallerystore','GalleryController@gstore');
@@ -120,7 +222,7 @@ Route::Post('/isupdate/{id}','GalleryController@isupdate');
 
 //Contact
 
-Route::get('/contact','ContactController@contact');
+Route::get('/viewcontact','ContactController@contact');
 Route::get('/replies','ContactController@reply');
 Route::get('/replycontact/{id}','ContactController@replyform');
 Route::get('/createcontact','ContactController@create');

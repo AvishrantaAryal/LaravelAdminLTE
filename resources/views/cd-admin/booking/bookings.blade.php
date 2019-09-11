@@ -166,7 +166,7 @@ Bookings
         <a href="{{url('/reply/'.$t->id)}}"><button type="submit" class="btn btn-primary pull-left">Reply</button></a>
        <div class="col-md-4"></div>
        
-        <?php $r = App\BookingStatus::where('id',$t->id)->orderBy('id','desc')->get()->first();
+        <?php $r = App\BookingStatus::where('contact_id',$t->id)->orderBy('id','desc')->get()->first();
         
         ?>
         @if($r=='')

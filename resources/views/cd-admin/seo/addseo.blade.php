@@ -43,6 +43,10 @@ Add SEO
                     <option value="About">About</option>
                     <option value="Service">Service</option>
                     <option value="Package">Package</option>
+                    <option value="Review">Review</option>
+                    <option value="Gallery">Gallery</option>
+                    <option value="Contact">Contact</option>
+                    <option value="Booking">Booking</option>
 
                   </select>
                   

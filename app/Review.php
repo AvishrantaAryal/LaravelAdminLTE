@@ -42,7 +42,7 @@ class Review extends Model
 	{
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'address' => 'required',
     	'summary' => 'required',
     	'status' => 'required',

@@ -41,7 +41,7 @@ class Carousel extends Model
 	{
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'description' => 'required',
     	'image' => 'required|image',
     	'alt' => 'required',

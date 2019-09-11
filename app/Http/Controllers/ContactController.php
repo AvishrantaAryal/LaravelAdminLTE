@@ -32,12 +32,13 @@ class ContactController extends Controller
 	}
 
 	 public function store(){
+
     	$data = request()->validate([
     		'name' => 'required',
     		'email' => 'required|email',
-    		'subject'=>'required',
     		'message' => 'required'
     	]);
+  
 
         $a = [];
         $a['created_at'] = Carbon::now('Asia/Kathmandu');
@@ -50,7 +51,7 @@ class ContactController extends Controller
     	
     	DB::table('contacts')->where('id',$id)->delete();
     	Session::flash('deletesuccess');
-    	return redirect('/contact');
+    	//return redirect('/viewcontact');
   }
 
 

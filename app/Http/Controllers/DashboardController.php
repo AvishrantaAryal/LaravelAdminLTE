@@ -11,51 +11,32 @@ use App\BookingReply;
 use App\BookingStatus;
 use App\Bookings;
 use Carbon\Carbon;
+use Auth;
 
 
 class DashboardController extends Controller
 {
     public function dashboard(){
+
+        // dd(Auth::user()->email); 
     	$test =	DB::table('quick_mails')->orderBy('id', 'DESC')->take(5)->get();
     	$packages=DB::table('packages')->get();
-        $book=DB::table('booking_statuses')->get();
+        $acept=DB::table('booking_statuses')->where('status','approved')->get();
+        $accepted=count($acept);
+        $reject=DB::table('booking_statuses')->where('status','rejected')->get();
+        $rejected=count($reject);
+        $admin = DB::table('users')->orderBy('id','DESC')->get()->first();  
+
     	$pak=count($packages);
 
 
     	$book = DB::table('bookings')->get();
-    	$reply = DB::table('booking_replies')->get();
-    	$count = 0;
-    	$acc = 0;
-    	$rej = 0;
+        $b=count($book);
+        $booking=$b-$accepted-$rejected;
+        
 
-    	foreach($book as $b){
-    	$reply = DB::table('booking_replies')->where('contact_id',$b->id)->get();
-    	foreach($reply as $r){
-
-    		if($r->contact_id==$b->id)
-    		{	if($r->status=='accepted'){
-    			$acc++;
-
-
-    		}else{
-    			$rej++;
-
-    		}
-    		}
-    		else
-   			{	
-    			$count++;
-   			 }
-
-   			}
-
-    		$count++;
-    		$a = $count;
-    		$accepted = $acc;
-    		$rejected = $rej;
-    		$booking = $a-$accepted-$rejected;    	
-    }
-    	return view('cd-admin.home.home',compact('test','booking','rejected','accepted','pak'));
+    	
+    	return view('cd-admin.home.home',compact('test','booking','rejected','accepted','pak','admin'));
     }
 
     public function view(){

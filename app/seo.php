@@ -40,7 +40,7 @@ class seo extends Model
 	   {
   		$request =Request()->all();
   		$data =  Request()->validate([
-    	'name' => 'required|regex:/(^([a-zA-Z]+)(\d+)?$)/u',
+    	'name' => 'required',
     	'title' => 'required',
     	'keywords' => 'required|max:60',
     	'description' => 'required|max:60',

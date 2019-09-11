@@ -54,12 +54,6 @@ Mail Store
                 </div>
 
                 <div class="form-group">
-                  <label for="name">Subject</label>
-                  <div class="text text-danger">{{$errors->first('subject')}}</div>
-                  <input type="text" class="form-control" name="subject"  id="subject" placeholder="Enter Subject">
-                
-                </div>
-                <div class="form-group">
                     <label for="text">Message</label>
                     <div class="text text-danger">{{$errors->first('message')}}</div>
                   <textarea name="message" id="summernote" rows="20" cols="80">

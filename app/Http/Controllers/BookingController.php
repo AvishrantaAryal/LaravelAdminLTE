@@ -57,15 +57,26 @@ class BookingController extends Controller
         $b['message'] = $request['message'];
         $b['slug'] = $request['slug'];
         $b->save();
-        return redirect('/bookings');
+       return redirect('/');
 
     }
 
 
     public function deleteinbox($id){
+         DB::beginTransaction();
+        try{
         DB::table('bookings')->where('id',$id)->delete();
+        BookingStatus::where('contact_id',$id)->delete();
+        DB::commit();
         Session::flash('deletesuccess');
         return redirect('/bookings');
+        }
+         catch(\Exception $e){
+            DB::rollback();
+
+        }
+
+        
     }
 
     public function replyform($id){
@@ -80,8 +91,8 @@ class BookingController extends Controller
     }
     public function storereply($id){
          $data = request()->validate([
-            'email' => 'required|email|regex:/^[ ,.A-Za-z0-9\?\\\'\"\_~\-!@#\$%\^&\*\(\)]+$/',
-            'subject' => 'required|regex:/^[ ,.A-Za-z0-9\?\\\'\"\_~\-!@#\$%\^&\*\(\)]+$/',
+            'email' => 'required|email',
+            'subject' => 'required',
             'message' => 'required',
             'active'=>'required',
             

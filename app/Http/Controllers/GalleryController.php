@@ -32,8 +32,8 @@ class GalleryController extends Controller
      {
 
         $ga=DB::table('galleries')->get();
-         $im=DB::table('images')->where('gallery_id',$album_id)->get();
- 	return view('cd-admin.gallery.imageview',compact('im','album_id','ga'));
+        $im=DB::table('images')->where('gallery_id',$album_id)->get();
+ 	  return view('cd-admin.gallery.imageview',compact('im','album_id','ga'));
 
 	 }
 
@@ -42,13 +42,13 @@ class GalleryController extends Controller
     {
         $test = $p->validationinsert();
         $p->gstore($test);
-      return redirect('/gallery');
+      return redirect('/viewgallery');
     }
 
     public function gremove(Gallery $p,$id)
     {
          $p->remove($id);
-        return redirect('/gallery');
+        return redirect('/viewgallery');
     } 
 
 
@@ -67,7 +67,7 @@ class GalleryController extends Controller
         }
         $a['updated_at'] =Carbon::now('Asia/Kathmandu');
         DB::table('galleries')->where('id',$id)->update($a);
-        return redirect('/gallery');
+        return redirect('/viewgallery');
     }
 
 

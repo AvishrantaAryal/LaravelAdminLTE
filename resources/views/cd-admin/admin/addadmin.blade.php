@@ -16,8 +16,8 @@ Add Admin
      
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Contact</a></li>
-        <li class="active">Contact Form</li>
+        <li><a href="#">Admin</a></li>
+        <li class="active">Add Admin</li>
       </ol>
     </section>
 
@@ -36,7 +36,7 @@ Add Admin
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form method="post" action="{{url('storeadmin')}}" enctype="multipart/form-data" >
+            <form method="post" action="{{url('storeadmin')}}"  >
               {{csrf_field()}}
               <div class="box-body">
                 <div class="form-group">
@@ -61,10 +61,15 @@ Add Admin
                 </div>
                 <div class="form-group">
                   <label for="name">Confirm Password</label>
-                  <div class="text text-danger">{{$errors->first('cpassword')}}</div>
-                  <input type="Password" class="form-control" name="cpassword"  id="subject" placeholder="Confirm Password">
+                  <div class="text text-danger">{{$errors->first('password_confirmation')}}</div>
+                  <input type="Password" class="form-control" name="password_confirmation"  id="password_confirmtion" placeholder="Confirm Password">
                 
                 </div>
+               <div class="form-group">
+            <label for="role">Role</label><br>
+            <input type="radio" name="role" class="minimal" checked value="superadmin"> superadmin &nbsp; &nbsp; &nbsp; &nbsp;
+            <input type="radio" name="role" class="minimal" value="admin">  admin
+          </div>
              
 
                

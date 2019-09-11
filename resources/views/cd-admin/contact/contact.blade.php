@@ -36,20 +36,21 @@ Contact inbox
             </div>
             <!-- /.box-header -->
             <div class="box-body no-padding">
-                 <a href="{{url('/contact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
+                 <a href="{{url('/viewcontact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
                
               <div class="table-responsive mailbox-messages">
                 <table class="table table-hover table-striped">
                   <tbody>
                     @foreach($c as $contact)
                   <tr>
-                    <td class="mailbox-star"><button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$contact->id}}"><i class="fa fa-trash"> </i></button>
+                    <td class="mailbox-star">
+                      <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$contact->id}}"><i class="fa fa-trash"> </i></button>
 
                       <button class="btn btn-default" data-toggle="modal" data-target="#view{{$contact->id}}"><i class="fa fa-eye"></i></button>
 
                     </td> 
                     <td>
-                      <?php $test = App\Reply::where('email',$contact->email)->where('contact_id',$contact->id)->orderBy('id','desc')->get()->first();
+                      <?php $test = App\Reply::where('contact_id',$contact->id)->orderBy('id','desc')->get()->first();
                          ?>
                          @if($test=='')
 
@@ -58,7 +59,7 @@ Contact inbox
                           <div class="alert alert-info" style="padding: 2px; width: 55px;" >Unseen</div>
 
 
-                        @else($test['active']=='Replyed')
+                        @elseif($test['status']=='active')
 
                        
                         <div class="alert alert-success" style="padding: 2px; width: 55px;" >seen</div>
@@ -70,18 +71,13 @@ Contact inbox
                     </td>
                     
                       <td class="mailbox-name">{{$contact->name}}
-                    <td class="mailbox-subject"><strong>{{$contact->subject}}</strong>
-                      <td class="mailbox-subject">{!!str_limit($contact->message,$limits='50')!!}
+                       <td class="mailbox-subject">{!!str_limit($contact->message,$limits='50')!!}
                       </td>
                     </td>
                     
                     <td class="mailbox-date">
-                      <?php $date = Carbon\Carbon::parse($contact->created_at);
-                     $now = Carbon\Carbon::now();
-                      $diff = $date->diffForHumans($now);
-                      ?>
-                      {{$diff}}
-                    </td>
+                     {{ $diff = Carbon\Carbon::parse($contact->created_at)->diffForHumans(Carbon\Carbon::now('Asia/Kathmandu')) }} </td>
+                    
                    
                   </tr>
                    @endforeach
@@ -95,7 +91,7 @@ Contact inbox
             <!-- /.box-body -->
             <div class="box-footer no-padding">
               {!!$c->links()!!}
-                  <a href="{{url('/contact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
+                  <a href="{{url('/viewcontact')}}"><button type="button" class="btn btn-default btn-sm"><i class="fa fa-refresh"></i></button></a>
                
                 <!-- /.pull-right -->
               </div>
@@ -106,8 +102,10 @@ Contact inbox
   </div>
 </div>
 
-<?php $e = App\Contact::get()->first();?>
-<?php $d = App\Reply::get()->first();?>
+<?php $e = App\Contact::get();?>
+<?php $d = App\Reply::get();?>
+@foreach($e as $e)
+@foreach($d as $d)
 <div class="modal fade" id="view{{$e['id']}}">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -156,5 +154,6 @@ Contact inbox
           </div>
           <!-- /.modal-dialog -->
         </div>
-
+@endforeach
+@endforeach
 @endsection

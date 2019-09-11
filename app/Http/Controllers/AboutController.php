@@ -14,15 +14,9 @@ class AboutController extends Controller
         return view('cd-admin.about.aboutform');
     }
 
-    public function aboutshow(){
-             $about = DB::table('knowabouts')->get();
-        return view('cd-admin.about.aboutshow',compact('about'));
 
-    }
-
-
-    public function aboutdetail($id){
-        $about = DB::table('knowabouts')->where('id',$id)->get()->first();
+    public function aboutdetail(){
+        $about = DB::table('knowabouts')->get()->first();
         return view('cd-admin.about.aboutdetail',compact('about'));
     }
          public function aboutstore(){
@@ -39,10 +33,10 @@ class AboutController extends Controller
         $about['file'] = $pdf;
         $about['video'] = $request['video'];
          $about->save();
-         return redirect('/aboutshow');
+         return redirect('/aboutdetail');
     
     }
-    public function aboutupdate($id)
+    public function aboutupdate()
     {
         $request = Request()->all();
         $v = $this->updaterequest();
@@ -62,7 +56,7 @@ class AboutController extends Controller
         // $about['file'] = $pdf;
         $about->save();
           Session::flash('updatesuccess');
-        return redirect('/aboutshow');
+        return redirect('/aboutdetail');
         }
 
     

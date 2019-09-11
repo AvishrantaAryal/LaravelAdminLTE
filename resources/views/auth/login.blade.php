@@ -42,7 +42,7 @@
                     {{csrf_field()}}
                     <div class="wrap-input100 validate-input m-b-26" data-validate="Username is required">
                         <span class="label-input100">E-Mail Address</span>
-                        <input class="input100 form-control " required="" type="text" name="email" placeholder="Enter Email" >
+                        <input class="input100 form-control " required="" type="text" name="email" placeholder="Enter Email" required="" >
                        
 
                         <span class="focus-input100"></span>
@@ -50,7 +50,7 @@
 
                     <div class="wrap-input100 validate-input m-b-18" data-validate = "Password is required">
                         <span class="label-input100">Password</span>
-                        <input class="input100 "required="" type="password" name="password" placeholder="Enter password">
+                        <input class="input100 "required="" type="password" name="password" placeholder="Enter password" required="">
                         <span class="focus-input100"></span>
                     </div>
 

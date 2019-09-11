@@ -11,9 +11,9 @@ Image View
 
 	 <section class="content-header">
   <h1 style="padding-left: 10px;">
-   @foreach($ga as $a)
-   {{$a->name}}
-   @endforeach
+ 
+  
+ 
     
   </h1>
   

@@ -20,6 +20,20 @@ Admin
     </section>
 
     <section class="content">
+      @if(Session::has('success'))
+        <div class="alert alert-success alert-dismissible">
+          <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Inserted Successfully</strong>
+          {{Session::get("message", '')}}
+        </div>
+        @elseif(Session::has('deletesuccess'))
+        <div class="alert alert-danger alert-dismissible">
+          <a class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Data Deleted Successfully</strong>
+          {{Session::get("message", '')}}
+        </div>
+      
+        @endif
       <div class="row">
         <div class="col-xs-12">
            <div class="box">
@@ -34,6 +48,7 @@ Admin
                   <th>S.N</th>
                   <th>Name</th>
                   <th>E-mail</th>
+                  <th>Role</th>
                   <th>Action</th>
                   
                 </tr>
@@ -44,9 +59,18 @@ Admin
                   <td>{{$loop->iteration}} </td>
                   <td>{{$a->name}}</td>
                   <td>{{$a->email}}</td>
+                  <td>{{$a->role}}</td>
                   <td>
-                    
-                   <button class="btn btn-success" data-toggle="modal" data-target="#exampleModalLong"><i class="fa  fa-eye"> </i></button></td>
+                    @if(Auth::user()->role =='superadmin')
+                    @if(Auth::user()->email ==$a->email)
+                    @else
+                 <button class="btn btn-danger" data-toggle="modal" data-target="#modal-danger{{$a->id}}"><i class="fa fa-trash"> </i></button>
+                 @endif
+                 @else
+                 @endif
+
+               </td>
+               
                   </tr>
                 @endforeach
                 </tbody>
@@ -55,6 +79,7 @@ Admin
                   <th>S.N</th>
                   <th>Name</th>
                   <th>E-mail</th>
+                  <th>Role</th>
                   <th>Action</th>
                   
                 </tr>
@@ -78,29 +103,10 @@ Admin
         <!--MODEL-->
         <?php $r = App\User::all();?>
         @foreach($r as $ad)
-<div class="modal fade" id="exampleModalLong" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Name : {{$ad->name}}</p>
-        <p>Email:{{$ad->email}}
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        
-      </div>
-    </div>
-  </div>
-</div>
 
 
-<div class="modal modal-danger fade" id="modal-danger">
+
+<div class="modal modal-danger fade" id="modal-danger{{$ad->id}}">
           <div class="modal-dialog">
             <div class="modal-content">
               <div class="modal-header">
@@ -113,7 +119,7 @@ Admin
               </div>
               <div class="modal-footer">
                 <button type="button" class="btn btn-outline pull-left" data-dismiss="modal">Cancel</button>
-                <button type="button" class="btn btn-outline">Yes</button>
+                <a href="{{url('/deleteadmin/'.$ad['id'])}}"> <button type="button" class="btn btn-outline">Yes</button></a>
               </div>
             </div>
             <!-- /.modal-content -->
